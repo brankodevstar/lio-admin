@@ -1,39 +1,17 @@
 import React, { useEffect, useState } from "react";
 import { Button, Grid } from "@material-ui/core";
 import { Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Paper } from "@mui/material";
-import { Dialog, DialogContent, Typography, makeStyles } from '@material-ui/core';
+import TextField from '@mui/material/TextField';
+import Dialog from '@mui/material/Dialog';
+import DialogActions from '@mui/material/DialogActions';
+import DialogContent from '@mui/material/DialogContent';
+import DialogContentText from '@mui/material/DialogContentText';
+import DialogTitle from '@mui/material/DialogTitle';
+import { teal, grey } from "@material-ui/core/colors";
 import { Delete, Edit, Update } from '@mui/icons-material'
 import Action from '../../action'
 
 import PageTitle from "../../components/PageTitle";
-
-const useStyles = makeStyles(() => ({
-    root: {
-        flexGrow: 1
-    },
-    primaryColor: {
-        color: teal[500]
-    },
-    secondaryColor: {
-        color: grey[700]
-    },
-
-    padding: {
-        padding: 0
-    },
-    mainHeader: {
-        backgroundColor: grey[100],
-        padding: 20,
-        alignItems: "center"
-    },
-    mainContent: {
-        padding: 40
-    },
-    secondaryContainer: {
-        padding: "20px 25px",
-        backgroundColor: grey[200]
-    }
-});
 
 const tableHeaders = [
     'No', 'First Name', 'Last Name', 'Email Addr', 'Phone Number', 'City Name', 'Gender', 'Birth Date', 'Caption', 'Avatar Url', 'Operation'
@@ -41,7 +19,15 @@ const tableHeaders = [
 
 export default function MembsersPage() {
     const [members, setMembers] = useState([])
-    const classes = useStyles();
+    const [open, setOpen] = React.useState(true);
+
+    const handleClickOpen = () => {
+        setOpen(true);
+    };
+
+    const handleClose = () => {
+        setOpen(false);
+    };
 
     const updateMember = (member) => {
         console.log('update', member)
@@ -104,19 +90,79 @@ export default function MembsersPage() {
                 </Grid>
             </Grid>
 
-            <Dialog
-                className={classes.root}
-                fullWidth
-                open={true}>
+            <Dialog open={open} onClose={handleClose}>
+                <DialogTitle>Member Info</DialogTitle>
                 <DialogContent>
-                    <Grid container>
-                        <Grid item xs={12}>
-                            <Typography variant="h5">
-                                Member Info
-                            </Typography>
-                        </Grid>
-                    </Grid>
+                    <TextField
+                        margin="dense"
+                        id="firstName"
+                        label="First Name"
+                        type="text"
+                        fullWidth
+                        variant="standard"
+                    />
+                    <TextField
+                        margin="dense"
+                        id="firstName"
+                        label="First Name"
+                        type="text"
+                        fullWidth
+                        variant="standard"
+                    />
+                    <TextField
+                        margin="dense"
+                        id="firstName"
+                        label="First Name"
+                        type="text"
+                        fullWidth
+                        variant="standard"
+                    />
+                    <TextField
+                        margin="dense"
+                        id="firstName"
+                        label="First Name"
+                        type="text"
+                        fullWidth
+                        variant="standard"
+                    />
+                    <TextField
+                        margin="dense"
+                        id="firstName"
+                        label="First Name"
+                        type="text"
+                        fullWidth
+                        variant="standard"
+                    />
+                    <TextField
+                        margin="dense"
+                        id="firstName"
+                        label="First Name"
+                        type="text"
+                        fullWidth
+                        variant="standard"
+                    />
+                    <TextField
+                        margin="dense"
+                        id="firstName"
+                        label="First Name"
+                        type="text"
+                        fullWidth
+                        variant="standard"
+                    />
+                    <TextField
+                        margin="dense"
+                        id="firstName"
+                        label="First Name"
+                        type="text"
+                        fullWidth
+                        variant="standard"
+                    />
+
                 </DialogContent>
+                <DialogActions>
+                    <Button onClick={handleClose}>Cancel</Button>
+                    <Button onClick={handleClose}>Subscribe</Button>
+                </DialogActions>
             </Dialog>
         </>
     )
