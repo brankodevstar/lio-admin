@@ -1,31 +1,29 @@
+const Crypto = require('crypto');
 const config = require('../config');
 
 const uploadPath = config.uploadPath;
 
 const upload = async(req, res) => {
-    console.log(req.files);
     try {
-        console.log('upload');
         if (req.files && Object.keys(req.files).length !== 0) {
-            console.log(req.files.file);
             const uploadedFile = req.files.file;
 
-            console.log(uploadedFile);
+            const [ pureName, extension ] = uploadedFile.name.split('.');
 
-            console.log('uploadedPath', uploadPath + uploadedFile.name);
+            const encryptedPureName = Crypto.randomBytes(20).toString('base64').slice(0,20);
 
-            console.log(process.cwd());
+            const encryptedFileName = encryptedPureName + '.' + extension;
 
-            const path = process.cwd() + '/server' + uploadPath + uploadedFile.name
-
-            console.log(path);
+            const path = process.cwd() + '/server' + uploadPath + encryptedFileName
 
             uploadedFile.mv(path, function(err) {
                 if (err) {
                     res.send('Failed !!!');
                 } else {
-                    console.log(path);
-                    res.send('Successfully Uploaded!')
+                    res.send({
+                        filename: encryptedFileName,
+                        message: 'Successfully Uploaded!'
+                    });
                 }
             })
         }
