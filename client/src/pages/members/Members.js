@@ -1,7 +1,8 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Button, Grid } from "@material-ui/core";
 import { Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Paper } from "@mui/material";
 import { Delete, Edit, Update } from '@mui/icons-material'
+import Action from '../../action'
 
 import PageTitle from "../../components/PageTitle";
 
@@ -88,6 +89,14 @@ export default function MembsersPage() {
         console.log('delete', member)
     }
 
+    useEffect(() => {
+        readMember();
+    }, [])
+
+    const readMember = async () => {
+        const response = Action.Member.list({});
+    }
+
     return (
         <>
             <PageTitle title="Members" />
@@ -119,8 +128,8 @@ export default function MembsersPage() {
                                         <TableCell align="center">{member.caption}</TableCell>
                                         <TableCell align="center">{member.avatarUrl}</TableCell>
                                         <TableCell align="center">
-                                            <Button size="small" startIcon={<Update />} onClick={() => {updateMember(member)}}/>
-                                            <Button size="small" startIcon={<Delete />} onClick={() => {deleteMember(member)}}/>
+                                            <Button size="small" startIcon={<Update />} onClick={() => { updateMember(member) }} />
+                                            <Button size="small" startIcon={<Delete />} onClick={() => { deleteMember(member) }} />
                                         </TableCell>
                                     </TableRow>
                                 ))}
