@@ -1,34 +1,34 @@
-// https://www.bezkoder.com/node-js-upload-store-images-mongodb/
-
-const uploadMiddleware = require('../middleware/upload');
 const config = require('../config');
 
-const MongoClient = require('mongodb').MongoClient;
-const GridFSBucket = require('mongodb').GridFSBucket;
+const uploadPath = config.uploadPath;
 
-const mongoURI = config.mongoURI;
-
-const storageUrl = 'http://localhost:4000/files/';
-
-const mongoClient = new MongoClient(mongoURI);
-
-const uploadFiles = async(req, res) => {
+const upload = async(req, res) => {
+    console.log(req.files);
     try {
-        await uploadMiddleware(req, res);
+        console.log('upload');
+        if (req.files && Object.keys(req.files).length !== 0) {
+            console.log(req.files.file);
+            const uploadedFile = req.files.file;
 
-        if (req.file === undefined) {
-            return res.send({
-                message: 'You must select a file',
-            });
+            console.log(uploadedFile);
+
+            console.log('uploadedPath', uploadPath + uploadedFile.name);
+
+            console.log(process.cwd());
+
+            const path = process.cwd() + '/server' + uploadPath + uploadedFile.name
+
+            console.log(path);
+
+            uploadedFile.mv(path, function(err) {
+                if (err) {
+                    res.send('Failed !!!');
+                } else {
+                    console.log(path);
+                    res.send('Successfully Uploaded!')
+                }
+            })
         }
-
-        if (res.status(200)) {
-            console.log(res);
-        }
-
-        return res.status(200).send({
-            message: 'File has been uploaded',
-        });
     } catch (error) {
         return res.send({
             message: `Error when trying upload image: ${error}`
@@ -36,4 +36,9 @@ const uploadFiles = async(req, res) => {
     }
 };
 
-module.exports = { uploadFiles };
+const download = async(req, res) => {
+    const path = process.cwd() + '/server' + uploadPath + req.params.filepath
+    res.sendFile(path);
+}
+
+module.exports = { upload, download };

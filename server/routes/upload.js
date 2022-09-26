@@ -3,6 +3,10 @@ const uploadController = require('../controllers/uploadController');
 
 router
     .route('/')
-    .post(uploadController.uploadFiles);
+    .post(uploadController.upload);
+
+router
+    .route('/:filepath')
+    .get(uploadController.download);
 
 module.exports = router;
