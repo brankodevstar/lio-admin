@@ -23,6 +23,7 @@ import Tables from "../../pages/tables";
 import Icons from "../../pages/icons";
 import Charts from "../../pages/charts";
 import Members from "../../pages/members";
+import Announcements from "../../pages/announcements";
 
 // context
 import { useLayoutState } from "../../context/LayoutContext";
@@ -58,6 +59,7 @@ function Layout(props) {
               <Route path="/app/ui/icons" component={Icons} />
               <Route path="/app/ui/charts" component={Charts} />
               <Route path="/app/members" component={Members} />
+              <Route path="/app/announcements" component={Announcements} />
             </Switch>
           </div>
         </>

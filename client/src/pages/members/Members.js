@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { Button, Grid } from "@material-ui/core";
 import { Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Paper } from "@mui/material";
 import { Dialog, DialogContent, Typography, makeStyles } from '@material-ui/core';
-import { Delete, Edit, Update } from '@mui/icons-material'
+import { Delete, Edit, Update } from '@mui/icons-material';
 import Action from '../../action'
 
 import PageTitle from "../../components/PageTitle";
@@ -33,7 +33,7 @@ const useStyles = makeStyles(() => ({
         padding: "20px 25px",
         backgroundColor: grey[200]
     }
-});
+})
 
 const tableHeaders = [
     'No', 'First Name', 'Last Name', 'Email Addr', 'Phone Number', 'City Name', 'Gender', 'Birth Date', 'Caption', 'Avatar Url', 'Operation'
