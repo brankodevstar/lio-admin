@@ -1,85 +1,47 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { Button, Grid } from "@material-ui/core";
 import { Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Paper } from "@mui/material";
+import { Dialog, DialogContent, Typography, makeStyles } from '@material-ui/core';
 import { Delete, Edit, Update } from '@mui/icons-material'
 import Action from '../../action'
 
 import PageTitle from "../../components/PageTitle";
 
-const members = [
-    {
-        firstName: 'Branko',
-        lastName: 'Damjanovic',
-        emailAddress: 'branko@gmail.com',
-        phoneNumber: '+2323232323',
-        cityName: 'Belgrade',
-        gender: 'male',
-        birthDate: '22/4/1986',
-        caption: 'test case',
-        avatarUrl: 'test avatar',
+const useStyles = makeStyles(() => ({
+    root: {
+        flexGrow: 1
     },
-    {
-        firstName: 'Branko',
-        lastName: 'Damjanovic',
-        emailAddress: 'branko@gmail.com',
-        phoneNumber: '+2323232323',
-        cityName: 'Belgrade',
-        gender: 'male',
-        birthDate: '22/4/1986',
-        caption: 'test case',
-        avatarUrl: 'test avatar',
+    primaryColor: {
+        color: teal[500]
     },
-    {
-        firstName: 'Branko',
-        lastName: 'Damjanovic',
-        emailAddress: 'branko@gmail.com',
-        phoneNumber: '+2323232323',
-        cityName: 'Belgrade',
-        gender: 'male',
-        birthDate: '22/4/1986',
-        caption: 'test case',
-        avatarUrl: 'test avatar',
+    secondaryColor: {
+        color: grey[700]
     },
-    {
-        firstName: 'Branko',
-        lastName: 'Damjanovic',
-        emailAddress: 'branko@gmail.com',
-        phoneNumber: '+2323232323',
-        cityName: 'Belgrade',
-        gender: 'male',
-        birthDate: '22/4/1986',
-        caption: 'test case',
-        avatarUrl: 'test avatar',
+
+    padding: {
+        padding: 0
     },
-    {
-        firstName: 'Branko',
-        lastName: 'Damjanovic',
-        emailAddress: 'branko@gmail.com',
-        phoneNumber: '+2323232323',
-        cityName: 'Belgrade',
-        gender: 'male',
-        birthDate: '22/4/1986',
-        caption: 'test case',
-        avatarUrl: 'test avatar',
+    mainHeader: {
+        backgroundColor: grey[100],
+        padding: 20,
+        alignItems: "center"
     },
-    {
-        firstName: 'Branko',
-        lastName: 'Damjanovic',
-        emailAddress: 'branko@gmail.com',
-        phoneNumber: '+2323232323',
-        cityName: 'Belgrade',
-        gender: 'male',
-        birthDate: '22/4/1986',
-        caption: 'test case',
-        avatarUrl: 'test avatar',
+    mainContent: {
+        padding: 40
     },
-];
+    secondaryContainer: {
+        padding: "20px 25px",
+        backgroundColor: grey[200]
+    }
+});
 
 const tableHeaders = [
     'No', 'First Name', 'Last Name', 'Email Addr', 'Phone Number', 'City Name', 'Gender', 'Birth Date', 'Caption', 'Avatar Url', 'Operation'
 ];
 
 export default function MembsersPage() {
+    const [members, setMembers] = useState([])
+    const classes = useStyles();
 
     const updateMember = (member) => {
         console.log('update', member)
@@ -94,7 +56,10 @@ export default function MembsersPage() {
     }, [])
 
     const readMember = async () => {
-        const response = Action.Member.list({});
+        const response = await Action.Member.list({});
+        if (response.data) {
+            setMembers(response.data)
+        }
     }
 
     return (
@@ -138,6 +103,21 @@ export default function MembsersPage() {
                     </TableContainer>
                 </Grid>
             </Grid>
+
+            <Dialog
+                className={classes.root}
+                fullWidth
+                open={true}>
+                <DialogContent>
+                    <Grid container>
+                        <Grid item xs={12}>
+                            <Typography variant="h5">
+                                Member Info
+                            </Typography>
+                        </Grid>
+                    </Grid>
+                </DialogContent>
+            </Dialog>
         </>
     )
 }
