@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
-import { Button, Grid } from "@material-ui/core";
+import { Grid } from "@material-ui/core";
 import { Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Paper } from "@mui/material";
+import Button from '@mui/material/Button';
 import TextField from '@mui/material/TextField';
 import Dialog from '@mui/material/Dialog';
 import DialogActions from '@mui/material/DialogActions';
@@ -9,9 +10,15 @@ import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
 import { teal, grey } from "@material-ui/core/colors";
 import { Delete, Edit, Update } from '@mui/icons-material'
+import Radio from '@mui/material/Radio';
+import RadioGroup from '@mui/material/RadioGroup';
+import FormControlLabel from '@mui/material/FormControlLabel';
+import FormControl from '@mui/material/FormControl';
+import FormLabel from '@mui/material/FormLabel';
 import Action from '../../action'
 
 import PageTitle from "../../components/PageTitle";
+import ImageUploader from "../../components/ImageUploader/ImageUploader";
 
 const tableHeaders = [
     'No', 'First Name', 'Last Name', 'Email Addr', 'Phone Number', 'City Name', 'Gender', 'Birth Date', 'Caption', 'Avatar Url', 'Operation'
@@ -52,6 +59,9 @@ export default function MembsersPage() {
         <>
             <PageTitle title="Members" />
             <Grid container spacing={4}>
+                <Grid item xs={12} align="right">
+                    <Button variant="contained" onClick={handleClickOpen}>Add</Button>
+                </Grid>
                 <Grid item xs={12}>
                     <TableContainer component={Paper}>
                         <Table aria-label="Members Table">
@@ -103,65 +113,75 @@ export default function MembsersPage() {
                     />
                     <TextField
                         margin="dense"
-                        id="firstName"
-                        label="First Name"
+                        id="lastName"
+                        label="Last Name"
                         type="text"
                         fullWidth
                         variant="standard"
                     />
                     <TextField
                         margin="dense"
-                        id="firstName"
-                        label="First Name"
+                        id="email"
+                        label="Email Address"
+                        type="email"
+                        fullWidth
+                        variant="standard"
+                    />
+                    <TextField
+                        margin="dense"
+                        id="phone"
+                        label="Phone Number"
                         type="text"
                         fullWidth
                         variant="standard"
                     />
                     <TextField
                         margin="dense"
-                        id="firstName"
-                        label="First Name"
-                        type="text"
-                        fullWidth
-                        variant="standard"
-                    />
-                    <TextField
-                        margin="dense"
-                        id="firstName"
-                        label="First Name"
-                        type="text"
-                        fullWidth
-                        variant="standard"
-                    />
-                    <TextField
-                        margin="dense"
-                        id="firstName"
-                        label="First Name"
-                        type="text"
-                        fullWidth
-                        variant="standard"
-                    />
-                    <TextField
-                        margin="dense"
-                        id="firstName"
-                        label="First Name"
-                        type="text"
-                        fullWidth
-                        variant="standard"
-                    />
-                    <TextField
-                        margin="dense"
-                        id="firstName"
-                        label="First Name"
+                        id="city"
+                        label="City"
                         type="text"
                         fullWidth
                         variant="standard"
                     />
 
+                    <RadioGroup
+                        row
+                        aria-labelledby="demo-row-radio-buttons-group-label"
+                        name="row-radio-buttons-group"
+                    >
+                        <FormControlLabel value="female" control={<Radio />} label="Female" />
+                        <FormControlLabel value="male" control={<Radio />} label="Male" />
+                    </RadioGroup>
+
+                    <TextField
+                        margin="dense"
+                        id="birthday"
+                        label="Birthday"
+                        type="text"
+                        fullWidth
+                        variant="standard"
+                    />
+                    <TextField
+                        margin="dense"
+                        id="caption"
+                        label="Caption"
+                        type="text"
+                        fullWidth
+                        variant="standard"
+                    />
+                    <input
+                        accept="image/*"
+                        style={{ display: 'none' }}
+                        id="raised-button-file"
+                        multiple
+                        type="file"
+                    />
+                    <ImageUploader />
+                    
                 </DialogContent>
                 <DialogActions>
                     <Button onClick={handleClose}>Cancel</Button>
-                    <Button onClick={handleClose}>Subscribe</Button>
+                    <Button onClick={handleClose}>Save</Button>
                 </DialogActions>
             </Dialog>
         </>
