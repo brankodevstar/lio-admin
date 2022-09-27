@@ -1,9 +1,11 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { Button, Grid } from '@material-ui/core';
 import { Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Paper } from "@mui/material";
 import { Delete, Update } from '@mui/icons-material';
 
 import PageTitle from "../../components/PageTitle";
+
+import Action from '../../action';
 
 const tableHeaders = [
     'No', 'Description', 'Image', 'Click Count', 'Comment Count', 'Created Time', 'Operation'
@@ -77,6 +79,19 @@ const listData = [
 ];
 
 export default function AnnouncementsPage() {
+    const [announcementList, setAnnouncementList] = useState([]);
+
+    useEffect(() => {
+        getAnnouncementList();
+    }, []);
+
+    const getAnnouncementList = async (params) => {
+        const response = await Action.Announcement.getList({});
+        if (response.data) {
+            setAnnouncementList(response.data);
+        }
+    }
+
     const updateAnnouncement = (announcement) => {
         console.log(announcement);
     }
@@ -100,7 +115,7 @@ export default function AnnouncementsPage() {
                                 </TableRow>
                             </TableHead>
                             <TableBody>
-                                {listData.map((announcement, index) => (
+                                {announcementList.map((announcement, index) => (
                                     <TableRow
                                         key={index}
                                         sx={{ '&:last-child td, &:last-child th': { border: 0 } }}

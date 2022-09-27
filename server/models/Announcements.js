@@ -18,10 +18,10 @@ const announcementSchema = new Schema({
         type: Number,
         required: true
     },
-    createdDt: {
+    /*createdDt: {
         type: Date,
         required: true
-    }
+    }*/
 });
 
 const Announcement = mongoose.model('Announcement', announcementSchema);
