@@ -1,5 +1,4 @@
 const mongoose = require('mongoose');
-const Float = require('mongoose-float').loadType(mongoose, 3);
 const Schema = mongoose.Schema;
 
 const announcementSchema = new Schema({
@@ -7,16 +6,20 @@ const announcementSchema = new Schema({
         type: String,
         required: true
     },
-    imgUr: {
+    imgUrl: {
         type: String,
         required: true
     },
-    heartRate: {
-        type: Float,
+    clickCount: {
+        type: Number,
         required: true
     },
-    articleCount: {
+    commentCount: {
         type: Number,
+        required: true
+    },
+    createdDt: {
+        type: Date,
         required: true
     }
 });

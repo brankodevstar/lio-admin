@@ -58,6 +58,12 @@ const structure = [
     link: "/app/members",
     icon: <PeopleIcon />,
   },
+  {
+    id: 6,
+    label: "Announcements",
+    link: "/app/announcements",
+    icon: <NotificationsIcon />,
+  },
 ];
 
 function Sidebar({ location }) {
