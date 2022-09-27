@@ -1,24 +1,28 @@
 import React, { useState, Fragment } from "react";
 import Button from '@mui/material/Button';
+import { Box, Paper } from '@material-ui/core';
 import classnames from "classnames";
 // styles
 import useStyles from "./styles";
+import Action from '../../action'
 
 function ImageUploader(props) {
-    const [attachFile, setAttachFile] = useState(null);
+    var classes = useStyles();
 
-    const handleFile = ({ target }) => {
+    const handleFile = async ({ target }) => {
         const fileReader = new FileReader();
         const name = target.accept.includes('image') ? 'images' : 'others';
-        fileReader.readAsDataURL(target.files[0]);
-        fileReader.onload = (e) => {
-            setAttachFile(e.target.result)
+        const formData = new FormData();
+        formData.append('file', target.files[0]);
+
+        const response = await Action.Upload.upload(formData);
+        if (response.data.success) {
+            props.setPath(response.data.filename);
         }
     }
 
     return (
         <Fragment>
-
             <input
                 accept="image/*"
                 style={{ display: 'none' }}
@@ -32,6 +36,16 @@ function ImageUploader(props) {
                     Upload
                 </Button>
             </label>
+            {
+                props.filePath && (
+                    <Box variant="outlined">
+                        <img
+                            className={classes.uploadedImage}
+                            src={`${process.env.REACT_APP_LIO_API_URL}upload/${props.filePath}`} />
+                    </Box>
+                )
+            }
+
         </Fragment>
     )
 }

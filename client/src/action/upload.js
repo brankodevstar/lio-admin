@@ -1,10 +1,10 @@
 import LIOAPIServer from "./config"
 
-const list = async (param) => {
-    const response = await LIOAPIServer.get('users', param);
+const upload = async (param) => {
+    const response = await LIOAPIServer.post('upload', param);
     return response;
 }
 
 export default {
-    list,
+    upload,
 }

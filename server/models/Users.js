@@ -10,15 +10,15 @@ const userSchema = new Schema({
         type: String,
         required: true
     },
-    emailAddress: {
+    email: {
         type: String,
         required: true,
     },
-    phoneNumber: {
+    phone: {
         type: String,
         required: true
     },
-    cityName: {
+    city: {
         type: String,
         required: true
     },
@@ -26,7 +26,7 @@ const userSchema = new Schema({
         type: String,
         required: true
     },
-    birthDate: {
+    birthday: {
         type: String,
         required: true,
     },
