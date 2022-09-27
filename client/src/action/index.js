@@ -1,9 +1,11 @@
 import Member from './member';
+import Upload from './upload';
 import Announcement from './announcements';
 
 const allAction = {
     Member,
-    Announcement,
+	Upload,
+	Announcement,
 };
 
 export default allAction;
