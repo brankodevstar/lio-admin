@@ -25,6 +25,7 @@ import Charts from "../../pages/charts";
 import Members from "../../pages/members";
 import Announcements from "../../pages/announcements";
 import Investments from "../../pages/investments";
+import Events from "../../pages/events";
 
 // context
 import { useLayoutState } from "../../context/LayoutContext";
@@ -62,6 +63,7 @@ function Layout(props) {
             <Route path="/app/members" component={Members} />
             <Route path="/app/announcements" component={Announcements} />
             <Route path="/app/investments" component={Investments} />
+            <Route path="/app/events" component={Events} />
           </Switch>
         </div>
       </>
