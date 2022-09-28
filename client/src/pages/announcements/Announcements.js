@@ -1,85 +1,142 @@
 import React, { useEffect, useState } from "react";
-import { Button, Grid } from '@material-ui/core';
+import { Grid } from '@material-ui/core';
 import { Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Paper } from "@mui/material";
 import { Delete, Update } from '@mui/icons-material';
+import Button from '@mui/material/Button';
+import TextField from '@mui/material/TextField';
+import Dialog from '@mui/material/Dialog';
+import DialogActions from '@mui/material/DialogActions';
+import DialogContent from '@mui/material/DialogContent';
+import DialogTitle from '@mui/material/DialogTitle';
 
 import PageTitle from "../../components/PageTitle";
+import ImageUploader from "../../components/ImageUploader/ImageUploader";
 
 import Action from '../../action';
+
+import useStyles from './styles';
 
 const tableHeaders = [
     'No', 'Description', 'Image', 'Click Count', 'Comment Count', 'Created Time', 'Operation'
 ];
 
-const listData = [
-    {
-        description: 'description',
-        imgUrl: 'imgUrl',
-        clickCount: 3434,
-        commentCount: 34345,
-        createdDt: '23/4/2020'
-    },
-    {
-        description: 'description',
-        imgUrl: 'imgUrl',
-        clickCount: 3434,
-        commentCount: 34345,
-        createdDt: '23/4/2020'
-    },
-    {
-        description: 'description',
-        imgUrl: 'imgUrl',
-        clickCount: 3434,
-        commentCount: 34345,
-        createdDt: '23/4/2020'
-    },
+const initialAnnoucement = {
+    description: '',
+    imgUrl: '',
+    clickCount: 0,
+    commentCount: 0,
+    createdDt: ''
+};
 
-    {
-        description: 'description',
-        imgUrl: 'imgUrl',
-        clickCount: 3434,
-        commentCount: 34345,
-        createdDt: '23/4/2020'
+const initErros = {
+    description: {
+        error: false,
+        helperText: 'This field is required.'
     },
-    {
-        description: 'description',
-        imgUrl: 'imgUrl',
-        clickCount: 3434,
-        commentCount: 34345,
-        createdDt: '23/4/2020'
+    imgUrl: {
+        error: false,
+        helperText: 'This field is required.'
     },
-    {
-        description: 'description',
-        imgUrl: 'imgUrl',
-        clickCount: 3434,
-        commentCount: 34345,
-        createdDt: '23/4/2020'
+    clickCount: {
+        error: false,
+        helperText: 'This field is required.'
     },
-    {
-        description: 'description',
-        imgUrl: 'imgUrl',
-        clickCount: 3434,
-        commentCount: 34345,
-        createdDt: '23/4/2020'
+    commentCount: {
+        error: false,
+        helperText: 'This field is required.'
     },
-    {
-        description: 'description',
-        imgUrl: 'imgUrl',
-        clickCount: 3434,
-        commentCount: 34345,
-        createdDt: '23/4/2020'
+    createdDt: {
+        error: false,
+        helperText: 'This field is required.'
     },
-    {
-        description: 'description',
-        imgUrl: 'imgUrl',
-        clickCount: 3434,
-        commentCount: 34345,
-        createdDt: '23/4/2020'
-    },    
-];
+};
 
 export default function AnnouncementsPage() {
     const [announcementList, setAnnouncementList] = useState([]);
+    const [open, setOpen] = useState(false);
+    const [announcementData, setAnnouncementData] = useState(initialAnnoucement);
+    const [errors, setErrors] = useState(initErros);
+
+    var classes = useStyles();
+
+    const handleClickOpen = () => {
+        setAnnouncementData(initialAnnoucement);
+        setOpen(true);
+    };
+
+    const handleClose = () => {
+        setOpen(false);
+    }
+
+    const validateAnnouncementData = () => {
+        let errorObj = errors;
+        if (!announcementData.description) {
+            errorObj = {
+                ...errorObj,
+                description: {
+                    ...errorObj.description,
+                    error: true
+                }
+            };
+        }
+        if (!announcementData.imgUrl) {
+            errorObj = {
+                ...errorObj,
+                imgUrl: {
+                    ...errorObj.imgUrl,
+                    error: true
+                }
+            };
+        }
+        if (!announcementData.clickCount) {
+            errorObj = {
+                ...errorObj,
+                clickCount: {
+                    ...errorObj.clickCount,
+                    error: true
+                }
+            };
+        }
+        if (!announcementData.commentCount) {
+            errorObj = {
+                ...errorObj,
+                commentCount: {
+                    ...errorObj.commentCount,
+                    error: true
+                }
+            };
+        }
+        if (!announcementData.createdDt) {
+            errorObj = {
+                ...errorObj,
+                createdDt: {
+                    ...errorObj.createdDt,
+                    error: true
+                }
+            };
+        }
+        setErrors(errorObj);
+        const isValidErrors = Object.values(errorObj).filter(item => item.error).length == 0;
+        return isValidErrors;
+    };
+
+    const handleSave = async () => {
+        if (validateAnnouncementData()) {
+            let response;
+            if (announcementData._id) {
+                response = await Action.Announcement.update(announcementData._id, announcementData);
+            } else {
+                response = await Action.Announcement.create(announcementData);
+            }
+
+            if (response.statusText === 'OK') {
+                getAnnouncementList();
+                setOpen(false);
+            }
+        } else {
+            console.log('valid false!');
+        }
+    };
 
     useEffect(() => {
         getAnnouncementList();
@@ -93,17 +150,61 @@ export default function AnnouncementsPage() {
     }
 
     const updateAnnouncement = (announcement) => {
-        console.log(announcement);
+        setAnnouncementData(announcement);
+        setOpen(true);
     }
 
-    const deleteAnnouncement = (announcement) => {
-        console.log(announcement);
+    const deleteAnnouncement = async (announcement) => {
+        const response = await Action.Announcement.remove(announcement._id);
+        if (response.statusText === 'OK') {
+            getAnnouncementList();
+            console.log('Successfully Deleted!');
+        }
+    }
+
+    const setUploadedImgUrl = (path) => {
+        setAnnouncementData({
+            ...announcementData,
+            imgUrl: path
+        })
+    }
+
+    const handleValid = e => {
+        const { name, value } = e.target;
+        if (!value) {
+            setErrors({
+                ...errors,
+                [name]: {
+                    ...errors[name],
+                    error: true
+                }
+            })
+        } else {
+            setErrors({
+                ...errors,
+                [name]: {
+                    ...errors[name],
+                    error: false
+                }
+            })
+        }
+    }
+
+    const handleChange = e => {
+        const { name, value } = e.target;
+        setAnnouncementData({
+            ...announcementData,
+            [name]: value
+        })
     }
 
     return (
         <>
             <PageTitle title="Announcements" />
             <Grid container spacing={4}>
+                <Grid item xs={12} align="right">
+                    <Button variant="contained" onClick={handleClickOpen}>Add</Button>
+                </Grid>
                 <Grid item xs={12}>
                     <TableContainer component={Paper}>
                         <Table aria-label="Announcements Table">
@@ -122,7 +223,9 @@ export default function AnnouncementsPage() {
                                     >
                                         <TableCell align="center">{index + 1}</TableCell>
                                         <TableCell align="center">{announcement.description}</TableCell>
-                                        <TableCell align="center">{announcement.imgUrl}</TableCell>
+                                        <TableCell align="center">
+                                            <img src={`${process.env.REACT_APP_LIO_API_URL}upload/${announcement.imgUrl}`} className={classes.announcementImg} />
+                                        </TableCell>
                                         <TableCell align="center">{announcement.clickCount}</TableCell>
                                         <TableCell align="center">{announcement.commentCount}</TableCell>
                                         <TableCell align="center">{announcement.createdDt}</TableCell>
@@ -137,6 +240,77 @@ export default function AnnouncementsPage() {
                     </TableContainer>
                 </Grid>
             </Grid>
+
+            <Dialog open={open} onClose={handleClose}>
+                <DialogTitle>Announcement Data</DialogTitle>
+                <DialogContent>
+                    <TextField
+                        margin="dense"
+                        id="description"
+                        name="description"
+                        label="Description"
+                        type="text"
+                        fullWidth
+                        variant="standard"
+                        value={announcementData.description}
+                        onChange={handleChange}
+                        required
+                        error={errors.description.error}
+                        helperText={errors.description.error ? errors.description.helperText : ''}
+                        onBlur={handleValid}
+                    />
+                    <ImageUploader setPath={setUploadedImgUrl} filePath={announcementData.imgUrl} />
+                    <TextField
+                        margin="dense"
+                        id="clickCount"
+                        name="clickCount"
+                        label="Click Count"
+                        type="number"
+                        fullWidth
+                        variant="standard"
+                        value={announcementData.clickCount}
+                        onChange={handleChange}
+                        required
+                        error={errors.clickCount.error}
+                        helperText={errors.clickCount.error ? errors.clickCount.helperText : ''}
+                        onBlur={handleValid}
+                    />
+                    <TextField
+                        margin="dense"
+                        id="commentCount"
+                        name="commentCount"
+                        label="Comment Count"
+                        type="number"
+                        fullWidth
+                        variant="standard"
+                        value={announcementData.commentCount}
+                        onChange={handleChange}
+                        required
+                        error={errors.commentCount.error}
+                        helperText={errors.commentCount.error ? errors.commentCount.helperText : ''}
+                        onBlur={handleValid}
+                    />
+                    <TextField
+                        margin="dense"
+                        id="createdDt"
+                        name="createdDt"
+                        label="Created Date"
+                        type="text"
+                        fullWidth
+                        variant="standard"
+                        value={announcementData.createdDt}
+                        onChange={handleChange}
+                        required
+                        error={errors.createdDt.error}
+                        helperText={errors.createdDt.error ? errors.createdDt.helperText : ''}
+                        onBlur={handleValid}
+                    />
+                </DialogContent>
+                <DialogActions>
+                    <Button onClick={handleClose} >Cancel</Button>
+                    <Button onClick={handleSave} variant="contained">Save</Button>
+                </DialogActions>
+            </Dialog>
         </>
     )
 }

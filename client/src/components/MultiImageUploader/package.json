@@ -1,0 +1,6 @@
+{
+    "name": "MultiImageUploader",
+    "version": "0.0.0",
+    "private": true,
+    "main": "MultiImageUploader.js"
+}
