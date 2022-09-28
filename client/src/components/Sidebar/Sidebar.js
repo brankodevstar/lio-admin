@@ -66,7 +66,7 @@ const structure = [
     icon: <NotificationsIcon />,
   },
   {
-    id: 6,
+    id: 7,
     label: "Investments",
     link: "/app/investments",
     icon: <LocalActivityIcon />,

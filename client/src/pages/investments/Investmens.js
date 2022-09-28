@@ -198,6 +198,10 @@ export default function InvestmentsPage() {
                 response = await Action.Investments.update(investmentData._id, investmentData);
             } else {
                 response = await Action.Investments.create(investmentData);
+                setInvestmentData({
+                    ...investmentData,
+                    _id: response.data._id
+                });
             }
 
             if (response.statusText == "OK") {
@@ -224,7 +228,7 @@ export default function InvestmentsPage() {
     }, [])
 
     const readInvestment = async () => {
-        const response = await Action.Investments.list({});
+        const response = await Action.Investments.list({ type: 1 });
         if (response.data) {
             setInvestments(response.data)
         }

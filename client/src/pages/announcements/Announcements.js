@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { Grid } from '@material-ui/core';
-import { Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Paper } from "@mui/material";
+import { Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Paper, Typography } from "@mui/material";
 import { Delete, Update } from '@mui/icons-material';
 import Button from '@mui/material/Button';
 import TextField from '@mui/material/TextField';
@@ -28,7 +28,7 @@ const initialAnnoucement = {
     createdDt: ''
 };
 
-const initErros = {
+const initErrors = {
     description: {
         error: false,
         helperText: 'This field is required.'
@@ -45,22 +45,19 @@ const initErros = {
         error: false,
         helperText: 'This field is required.'
     },
-    createdDt: {
-        error: false,
-        helperText: 'This field is required.'
-    },
 };
 
 export default function AnnouncementsPage() {
     const [announcementList, setAnnouncementList] = useState([]);
     const [open, setOpen] = useState(false);
     const [announcementData, setAnnouncementData] = useState(initialAnnoucement);
-    const [errors, setErrors] = useState(initErros);
+    const [errors, setErrors] = useState(initErrors);
 
     var classes = useStyles();
 
     const handleClickOpen = () => {
         setAnnouncementData(initialAnnoucement);
+        setErrors(initErrors);
         setOpen(true);
     };
 
@@ -106,10 +103,10 @@ export default function AnnouncementsPage() {
                 }
             };
         }
-        if (!announcementData.createdDt) {
+        if (!announcementData.imgUrl) {
             errorObj = {
                 ...errorObj,
-                createdDt: {
+                imgUrl: {
                     ...errorObj.createdDt,
                     error: true
                 }
@@ -123,6 +120,7 @@ export default function AnnouncementsPage() {
     const handleSave = async () => {
         if (validateAnnouncementData()) {
             let response;
+            announcementData.createdDt = new Date();
             if (announcementData._id) {
                 response = await Action.Announcement.update(announcementData._id, announcementData);
             } else {
@@ -259,6 +257,8 @@ export default function AnnouncementsPage() {
                         helperText={errors.description.error ? errors.description.helperText : ''}
                         onBlur={handleValid}
                     />
+                    <Typography>Photo {errors.imgUrl.error && <span className={classes.mandatoryField}>required</span>}
+                    </Typography>
                     <ImageUploader setPath={setUploadedImgUrl} filePath={announcementData.imgUrl} />
                     <TextField
                         margin="dense"
@@ -288,21 +288,6 @@ export default function AnnouncementsPage() {
                         required
                         error={errors.commentCount.error}
                         helperText={errors.commentCount.error ? errors.commentCount.helperText : ''}
-                        onBlur={handleValid}
-                    />
-                    <TextField
-                        margin="dense"
-                        id="createdDt"
-                        name="createdDt"
-                        label="Created Date"
-                        type="text"
-                        fullWidth
-                        variant="standard"
-                        value={announcementData.createdDt}
-                        onChange={handleChange}
-                        required
-                        error={errors.createdDt.error}
-                        helperText={errors.createdDt.error ? errors.createdDt.helperText : ''}
                         onBlur={handleValid}
                     />
                 </DialogContent>

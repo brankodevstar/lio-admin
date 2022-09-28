@@ -1,7 +1,8 @@
 import LIOAPIServer from "./config"
 
 const list = async (param) => {
-    const response = await LIOAPIServer.get('investments', param);
+    console.log('param ---------> ', param);
+    const response = await LIOAPIServer.get('investments', { data: { type: 1 } });
     return response;
 }
 

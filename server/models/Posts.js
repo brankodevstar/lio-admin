@@ -31,8 +31,8 @@ const postSchema = new Schema({
         type: Number,
         required: true
     },
-    comments: [
-        {
+    comments: {
+        type: [{
             commenterFirstName: {
                 type: String,
                 required: true
@@ -53,8 +53,9 @@ const postSchema = new Schema({
                 type: String,
                 required: true
             }
-        }
-    ]
+        }],
+        default: []
+    }
 });
 
 const Post = mongoose.model('Post', postSchema);

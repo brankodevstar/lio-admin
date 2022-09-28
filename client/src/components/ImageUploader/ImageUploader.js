@@ -1,49 +1,59 @@
-import React, { Fragment } from "react";
+import React, { useState, Fragment, useEffect } from "react";
 import Button from '@mui/material/Button';
-import { Box } from '@material-ui/core';
+import { Box, Typography } from '@material-ui/core';
 
-// styles
 import useStyles from "./styles";
 import Action from '../../action'
 
 function ImageUploader(props) {
     var classes = useStyles();
+    const [fileName, setFileName] = useState('');
 
     const handleFile = async ({ target }) => {
-        const fileReader = new FileReader();
+
         const name = target.accept.includes('image') ? 'images' : 'others';
         const formData = new FormData();
         formData.append('file', target.files[0]);
+        setFileName(target.files[0].name);
 
         const response = await Action.Upload.upload(formData);
         if (response.data.success) {
-            props.setPath(response.data.filename);
+            if (props.parentFieldName && props.fieldName) {
+                props.setPath(response.data.filename, props.parentFieldName, props.index, props.fieldName);
+            } else {
+                props.setPath(response.data.filename);
+            }
         }
     }
 
     return (
         <Fragment>
             <input
-                accept="image/*"
+                accept={!props.fileType ? 'image/*' : 'others'}
                 style={{ display: 'none' }}
-                id="raised-button-file"
+                id={"file-uploder-" + props.index}
                 type="file"
                 onChange={handleFile}
             />
-            <label htmlFor="raised-button-file">
+            <label htmlFor={"file-uploder-" + props.index}>
                 <Button variant="contained" component="span">
                     Upload
                 </Button>
             </label>
             {
-                props.filePath && (
+
+                (props.filePath && !props.fileType) ? (
                     <Box variant="outlined">
                         <img
                             className={classes.uploadedImage}
                             src={`${process.env.REACT_APP_LIO_API_URL}upload/${props.filePath}`} />
-                        
+
                     </Box>
-                )
+                ) : (props.filePath && props.fileType) ? (
+                    <Box variant="outlined">
+                        <Typography>{fileName}</Typography>
+                    </Box>
+                ) : ''
             }
         </Fragment>
     )
