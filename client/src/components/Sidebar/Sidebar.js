@@ -71,6 +71,12 @@ const structure = [
     link: "/app/investments",
     icon: <LocalActivityIcon />,
   },
+  {
+    id: 7,
+    label: "Events",
+    link: "/app/events",
+    icon: <LocalActivityIcon />,
+  },
 ];
 
 function Sidebar({ location }) {
