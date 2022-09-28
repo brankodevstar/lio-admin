@@ -1,12 +1,12 @@
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
-const announcementSchema = new Schema({
+const investmentSchema = new Schema({
     type: {
         type: Number,
         required: true,
     },
-    imgUrl: {
+    imageUrl: {
         type: String,
         required: true,
     },
@@ -45,7 +45,6 @@ const announcementSchema = new Schema({
     overview: {
         shortSummary: {
             type: String,
-            required: true,
         },
         highlights: {
             type: [String],
@@ -54,23 +53,18 @@ const announcementSchema = new Schema({
         investmentDetails: {
             target: {
                 type: Number,
-                required: true,
             },
             minimum: {
                 type: Number,
-                required: true,
             },
             investmentRaised: {
                 type: Number,
-                required: true,
             },
             previousRound: {
                 type: Number,
-                required: true,
             },
             stage: {
                 type: String,
-                required: true,
             },
         }
     },
@@ -78,48 +72,43 @@ const announcementSchema = new Schema({
         type: [{
             title: {
                 type: String,
-                required: true,
             },
             description: {
                 type: String,
-                required: true,
             },
         }],
         default: [],
     },
     team: {
-        avatarUrl: {
-            type: String,
-            required: true,
-        },
-        name: {
-            type: String,
-            required: true,
-        },
-        roleName: {
-            type: String,
-            required: true,
-        },
-        description: {
-            type: String,
-            required: true,
-        },
+        type: [{
+            avatarUrl: {
+                type: String,
+            },
+            name: {
+                type: String,
+            },
+            roleName: {
+                type: String,
+            },
+            description: {
+                type: String,
+            },
+        }],
+        default: []
     },
     documents: {
         type: [{
             documentUrl: {
                 type: String,
-                required: true,
             },
             documentName: {
                 type: String,
-                required: true,
             }
         }],
         default: [],
     },
 });
 
-const Announcement = mongoose.model('Announcement', announcementSchema);
+const Announcement = mongoose.model('Investment', investmentSchema);
 
 module.exports = Announcement;

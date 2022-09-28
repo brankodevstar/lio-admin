@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { Drawer, IconButton, List } from "@material-ui/core";
 import {
+  LocalActivity as LocalActivityIcon,
   Home as HomeIcon,
   NotificationsNone as NotificationsIcon,
   FormatSize as TypographyIcon,
@@ -64,6 +65,12 @@ const structure = [
     link: "/app/announcements",
     icon: <NotificationsIcon />,
   },
+  {
+    id: 6,
+    label: "Investments",
+    link: "/app/investments",
+    icon: <LocalActivityIcon />,
+  },
 ];
 
 function Sidebar({ location }) {
@@ -77,7 +84,7 @@ function Sidebar({ location }) {
   // local
   var [isPermanent, setPermanent] = useState(true);
 
-  useEffect(function() {
+  useEffect(function () {
     window.addEventListener("resize", handleWindowWidthChange);
     handleWindowWidthChange();
     return function cleanup() {
