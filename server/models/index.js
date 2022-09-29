@@ -1,7 +1,6 @@
 const mongoose = require('mongoose');
-const config = require('../config');
 
-mongoose.connect(process.env.MONGODB_URI || config.mongoURI);
+mongoose.connect(process.env.MONGODB_URI || process.env.MONGO_URL);
 
 mongoose.connection.on('connected', () => {
     console.log('Established Mongoose Default Connection');

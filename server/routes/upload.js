@@ -1,7 +1,6 @@
 const router = require('express').Router();
 const uploadController = require('../controllers/uploadController');
-const config = require('../config');
-const uploadPath = config.uploadPath;
+const uploadPath = process.env.UPLOAD_PATH;
 var multer = require("multer")
 var upload = multer({ dest: './server/' + uploadPath })
 

@@ -2,11 +2,10 @@ const express = require('express');
 const app = express();
 const fileUpload = require('express-fileupload');
 const cors = require('cors');
-const dotenv = require('dotenv');
-dotenv.config();
+require('dotenv').config();
 
-
-console.log('env variable =========> ', process.env)
+console.log('env variable =========> ', process.env.MONGO_URL);
+console.log('env variable =========> ', process.env.UPLOAD_PATH);
 const routes = require('./server/routes');
 
 const PORT = process.env.PORT || 5000;
