@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { Grid } from '@material-ui/core';
-import { Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Paper } from "@mui/material";
+import { Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Paper, Typography } from "@mui/material";
 import { Delete, Update } from '@mui/icons-material';
 import Button from '@mui/material/Button';
 import TextField from '@mui/material/TextField';
@@ -65,6 +65,7 @@ export default function EventsPage() {
             ...initialEvent,
             photos: [],
         });
+        setErrors(initErrors)
         setOpen(true);
     };
 
@@ -123,6 +124,16 @@ export default function EventsPage() {
                 }
             };
         }
+        
+        if (eventData.photos.length === 0) {
+            errorObj = {
+                ...errorObj,
+                photos: {
+                    ...errorObj.photos,
+                    error: true
+                }
+            };
+        }
         setErrors(errorObj);
         const isValidErrors = Object.values(errorObj).filter(item => item.error).length == 0;
         return isValidErrors;
@@ -177,6 +188,15 @@ export default function EventsPage() {
             ...eventData,
             photos: photos
         });
+        if (photos.length > 0) {
+            setErrors({
+                ...errors,
+                photos: {
+                    ...errors.photos,
+                    error: false
+                }
+            });
+        }
     }
 
     const deletePath = (path) => {
@@ -186,6 +206,15 @@ export default function EventsPage() {
             ...eventData,
             photos: filteredPhotos
         });
+        if (filteredPhotos.length === 0) {
+            setErrors({
+                ...errors,
+                photos: {
+                    ...errors.photos,
+                    error: true
+                }
+            });
+        }
     }
 
     const handleValid = e => {
@@ -279,6 +308,8 @@ export default function EventsPage() {
                         helperText={errors.title.error ? errors.title.helperText : ''}
                         onBlur={handleValid}
                     />
+                    <Typography>Photo {errors.photos.error && <span className={classes.mandatoryField}>required</span>}
+                    </Typography>
                     <MultiImageUploader addPath={addPath} deletePath={deletePath} photos={eventData.photos} />
                     <TextField
                         margin="dense"
