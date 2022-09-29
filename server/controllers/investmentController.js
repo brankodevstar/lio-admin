@@ -2,7 +2,6 @@ const Investment = require('../models/Investments');
 
 module.exports = {
     findAll: function (req, res) {
-        console.log('filter query ===> ', req);
         Investment.find(req.query)
             .then(investments => res.json(investments))
             .catch(err => res.status(422).json(err));
