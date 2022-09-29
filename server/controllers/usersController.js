@@ -2,9 +2,12 @@ const User = require('../models/Users');
 
 module.exports = {
     findAll: function (req, res) {
-        console.log('req.query ===========> ', req.body);
-        User.find(req.body)
-            .then(users => res.json(users))
+        console.log('query -', req.query);
+        User.find(req.query)
+            .then(users => {
+                console.log('users ---------> ', users);
+                res.json(users)
+            })
             .catch(err => res.status(422).json(err));
     },
     findById: function (req, res) {

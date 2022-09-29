@@ -22,7 +22,7 @@ const postSchema = new Schema({
         type: String,
     },
     heartRate: {
-        type: Float,
+        type: Number,
         required: true
     },
     articleNumber: {
