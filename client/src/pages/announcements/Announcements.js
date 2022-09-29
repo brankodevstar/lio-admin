@@ -103,15 +103,6 @@ export default function AnnouncementsPage() {
                 }
             };
         }
-        if (!announcementData.imgUrl) {
-            errorObj = {
-                ...errorObj,
-                imgUrl: {
-                    ...errorObj.createdDt,
-                    error: true
-                }
-            };
-        }
         setErrors(errorObj);
         const isValidErrors = Object.values(errorObj).filter(item => item.error).length == 0;
         return isValidErrors;
@@ -163,7 +154,14 @@ export default function AnnouncementsPage() {
         setAnnouncementData({
             ...announcementData,
             imgUrl: path
-        })
+        });
+        setErrors({
+            ...errors,
+            imgUrl: {
+                ...errors.imgUrl,
+                error: false
+            }
+        });
     }
 
     const handleValid = e => {

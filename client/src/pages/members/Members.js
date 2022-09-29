@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { Grid } from "@material-ui/core";
-import { Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Paper, Button, TextField, Dialog, DialogActions, DialogContent, DialogTitle } from "@mui/material";
+import { Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Paper, Button, TextField, Dialog, DialogActions, DialogContent, DialogTitle, Typography } from "@mui/material";
 import { Delete, Edit, Update } from '@mui/icons-material'
 import Radio from '@mui/material/Radio';
 import RadioGroup from '@mui/material/RadioGroup';
@@ -62,6 +62,10 @@ const initErrors = {
         error: false,
         helperText: 'This field is required.'
     },
+    avatarUrl: {
+        error: false,
+        helperText: 'This field is required.'
+    },
 }
 
 export default function MembsersPage() {
@@ -74,6 +78,7 @@ export default function MembsersPage() {
 
     const handleClickOpen = () => {
         setUserData(initUser);
+        setErrors(initErrors);
         setOpen(true);
     };
 
@@ -146,6 +151,15 @@ export default function MembsersPage() {
                 }
             };
         }
+        if (!userData.avatarUrl) {
+            errorObj = {
+                ...errorObj,
+                avatarUrl: {
+                    ...errorObj.avatarUrl,
+                    error: true
+                }
+            };
+        }
         setErrors(errorObj);
         const isValidErrors = Object.values(errorObj).filter(item => item.error).length == 0;
         return isValidErrors;
@@ -197,6 +211,13 @@ export default function MembsersPage() {
             ...userData,
             avatarUrl: path
         })
+        setErrors({
+            ...errors,
+            avatarUrl: {
+                ...errors.avatarUrl,
+                error: false
+            }
+        });
     }
 
     const handleValid = e => {
@@ -405,8 +426,9 @@ export default function MembsersPage() {
                         helperText={errors.caption.error ? errors.caption.helperText : ''}
                         onBlur={handleValid}
                     />
+                    <Typography>Photo {errors.avatarUrl.error && <span className={classes.mandatoryField}>required</span>}
+                    </Typography>
                     <ImageUploader setPath={setUploadedAvatar} filePath={userData.avatarUrl} />
-
                 </DialogContent>
                 <DialogActions>
                     <Button onClick={handleClose} >Cancel</Button>
