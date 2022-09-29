@@ -1,28 +1,29 @@
 const User = require('../models/Users');
 
 module.exports = {
-    findAll: function(req, res) {
-        User.find(req.query)
+    findAll: function (req, res) {
+        console.log('req.query ===========> ', req.body);
+        User.find(req.body)
             .then(users => res.json(users))
             .catch(err => res.status(422).json(err));
     },
-    findById: function(req, res) {
+    findById: function (req, res) {
         console.log(req.params);
         User.findById(req.params.id)
             .then(user => res.json(user))
             .catch(err => res.status(422).json(err));
     },
-    create: function(req, res) {
+    create: function (req, res) {
         User.create(req.body)
             .then(newUser => res.json(newUser))
             .catch(err => res.status(422).json(err));
     },
-    update: function(req, res) {
+    update: function (req, res) {
         User.findOneAndUpdate({ _id: req.params.id }, req.body)
             .then(user => res.json(user))
             .catch(err => res.status(422).json(err));
     },
-    remove: function(req, res) {
+    remove: function (req, res) {
         console.log(req.params.id);
         User.findById({ _id: req.params.id })
             .then(user => user.remove())
