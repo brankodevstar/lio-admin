@@ -12,7 +12,7 @@ require('./server/models');
 app.use(cors());
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
-app.use(fileUpload());
+// app.use(fileUpload());
 
 app.use(routes);
 

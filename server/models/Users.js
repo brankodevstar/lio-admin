@@ -37,6 +37,12 @@ const userSchema = new Schema({
     avatarUrl: {
         type: String,
         required: true
+    },
+    company: {
+        type: String,
+    },
+    createdDt: {
+        type: String,
     }
 });
 

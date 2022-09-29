@@ -13,7 +13,6 @@ const postSchema = new Schema({
     },
     posterAvatarUrl: {
         type: String,
-        required: true
     },
     description: {
         type: String,
@@ -21,7 +20,6 @@ const postSchema = new Schema({
     },
     imgUrl: {
         type: String,
-        required: true
     },
     heartRate: {
         type: Float,
@@ -29,6 +27,10 @@ const postSchema = new Schema({
     },
     articleNumber: {
         type: Number,
+        required: true
+    },
+    createdDt: {
+        type: String,
         required: true
     },
     comments: {

@@ -12,7 +12,7 @@ import ImageUploader from "../../components/ImageUploader/ImageUploader";
 import useStyles from "./styles";
 
 const tableHeaders = [
-    'No', 'First Name', 'Last Name', 'Email Addr', 'Phone Number', 'City Name', 'Gender', 'Birth Date', 'Caption', 'Avatar Url', 'Operation'
+    'No', 'First Name', 'Last Name', 'Email Addr', 'Phone Number', 'Company', 'City Name', 'Gender', 'Birth Date', 'Caption', 'Avatar Url', 'Operation'
 ];
 
 const initUser = {
@@ -20,11 +20,13 @@ const initUser = {
     lastName: '',
     email: '',
     phone: '',
+    company: '',
     city: '',
     gender: 'male',
     birthday: '',
     caption: '',
-    avatarUrl: ''
+    avatarUrl: '',
+    createdDt: '',
 }
 
 const initErrors = {
@@ -153,6 +155,7 @@ export default function MembsersPage() {
         // setOpen(false);
         if (validateUserData()) {
             let response;
+            userData.createdDt = new Date();
             if (userData._id) {
                 response = await Action.Member.update(userData._id, userData);
             } else {
@@ -255,6 +258,7 @@ export default function MembsersPage() {
                                         <TableCell align="center">{member.lastName}</TableCell>
                                         <TableCell align="center">{member.email}</TableCell>
                                         <TableCell align="center">{member.phone}</TableCell>
+                                        <TableCell align="center">{member.company}</TableCell>
                                         <TableCell align="center">{member.city}</TableCell>
                                         <TableCell align="center">{member.gender}</TableCell>
                                         <TableCell align="center">{member.birthday}</TableCell>
@@ -336,6 +340,17 @@ export default function MembsersPage() {
                         error={errors.phone.error}
                         helperText={errors.phone.error ? errors.phone.helperText : ''}
                         onBlur={handleValid}
+                    />
+                    <TextField
+                        margin="dense"
+                        id="company"
+                        name="company"
+                        label="Company"
+                        type="text"
+                        fullWidth
+                        variant="standard"
+                        value={userData.company}
+                        onChange={handleChange}
                     />
                     <TextField
                         margin="dense"

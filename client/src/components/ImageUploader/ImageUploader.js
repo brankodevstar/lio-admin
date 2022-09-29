@@ -15,7 +15,6 @@ function ImageUploader(props) {
         const formData = new FormData();
         formData.append('file', target.files[0]);
         setFileName(target.files[0].name);
-
         const response = await Action.Upload.upload(formData);
         if (response.data.success) {
             if (props.parentFieldName && props.fieldName) {
