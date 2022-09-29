@@ -167,7 +167,6 @@ export default function EventsPage() {
         const response = await Action.Events.remove(event._id);
         if (response.statusText === 'OK') {
             getEventList();
-            console.log('Successfully Deleted!');
         }
     }
 

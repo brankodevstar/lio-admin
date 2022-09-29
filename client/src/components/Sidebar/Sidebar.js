@@ -72,7 +72,7 @@ const structure = [
     icon: <LocalActivityIcon />,
   },
   {
-    id: 7,
+    id: 8,
     label: "Events",
     link: "/app/events",
     icon: <LocalActivityIcon />,

@@ -156,7 +156,6 @@ export default function AnnouncementsPage() {
         const response = await Action.Announcement.remove(announcement._id);
         if (response.statusText === 'OK') {
             getAnnouncementList();
-            console.log('Successfully Deleted!');
         }
     }
 

@@ -172,13 +172,11 @@ export default function MembsersPage() {
     };
 
     const updateMember = (member) => {
-        console.log('update', member)
         setUserData(member);
         setOpen(true);
     }
 
     const deleteMember = async (member) => {
-        console.log('delete', member)
         const response = await Action.Member.remove(member._id);
         readMember();
     }
