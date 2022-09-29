@@ -1,6 +1,3 @@
-const Crypto = require('crypto');
-const multer = require('multer');
-const uploadMiddle = multer({ dest: './images' })
 const uploadPath = process.env.UPLOAD_PATH;
 
 const upload = async (req, res) => {
