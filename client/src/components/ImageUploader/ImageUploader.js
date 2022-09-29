@@ -1,4 +1,4 @@
-import React, { useState, Fragment, useEffect } from "react";
+import React, { useState, Fragment } from "react";
 import Button from '@mui/material/Button';
 import { Box, Typography } from '@material-ui/core';
 
@@ -10,8 +10,6 @@ function ImageUploader(props) {
     const [fileName, setFileName] = useState('');
 
     const handleFile = async ({ target }) => {
-
-        const name = target.accept.includes('image') ? 'images' : 'others';
         const formData = new FormData();
         formData.append('file', target.files[0]);
         setFileName(target.files[0].name);
@@ -44,6 +42,7 @@ function ImageUploader(props) {
                 (props.filePath && !props.fileType) ? (
                     <Box variant="outlined">
                         <img
+                            alt="Upload Image"
                             className={classes.uploadedImage}
                             src={`${process.env.REACT_APP_LIO_API_URL}upload/${props.filePath}`} />
 

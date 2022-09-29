@@ -1,10 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { Grid, Typography } from "@material-ui/core";
 import { Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Paper, Button, TextField, Dialog, DialogActions, DialogContent, DialogTitle, Box, FormControl, InputLabel, Select, MenuItem } from "@mui/material";
-import { Delete, Edit, Update } from '@mui/icons-material'
-import Radio from '@mui/material/Radio';
-import RadioGroup from '@mui/material/RadioGroup';
-import FormControlLabel from '@mui/material/FormControlLabel';
+import { Delete, Update } from '@mui/icons-material';
 
 import Action from '../../action'
 import PageTitle from "../../components/PageTitle";
@@ -185,7 +182,7 @@ export default function InvestmentsPage() {
             };
         }
         setErrors(errorObj);
-        const isValidErrors = Object.values(errorObj).filter(item => item.error).length == 0;
+        const isValidErrors = Object.values(errorObj).filter(item => item.error).length === 0;
         setPhotoRequired(investmentData.imageUrl ? false : true);
         const isPhoto = investmentData.imageUrl ? false : true;
         return isValidErrors && !isPhoto;
@@ -204,7 +201,7 @@ export default function InvestmentsPage() {
                 });
             }
 
-            if (response.statusText == "OK") {
+            if (response.statusText === "OK") {
                 readInvestment();
                 setDialogIndex(dialogIndex + 1);
             }
@@ -219,7 +216,7 @@ export default function InvestmentsPage() {
     }
 
     const deleteInvestment = async (item) => {
-        const response = await Action.Investments.remove(item._id);
+        await Action.Investments.remove(item._id);
         readInvestment();
     }
 
@@ -404,10 +401,10 @@ export default function InvestmentsPage() {
         let investmentDataClone = investmentData;
         if (childField) {
             let arrayClone = investmentDataClone[parentField][childField];
-            investmentDataClone[parentField][childField] = arrayClone.filter((item, i) => i != index);
+            investmentDataClone[parentField][childField] = arrayClone.filter((item, i) => i !== index);
         } else {
             let arrayClone = investmentDataClone[parentField];
-            investmentDataClone[parentField] = arrayClone.filter((item, i) => i != index);
+            investmentDataClone[parentField] = arrayClone.filter((item, i) => i !== index);
         }
 
         setInvestmentData(Object.assign({}, investmentDataClone));
@@ -439,7 +436,7 @@ export default function InvestmentsPage() {
                                         <TableCell align="center">{index + 1}</TableCell>
                                         <TableCell align="center">{item.type}</TableCell>
                                         <TableCell align="center">
-                                            <img src={`${process.env.REACT_APP_LIO_API_URL}upload/${item.imageUrl}`} className={classes.photo} />
+                                            <img alt="img" src={`${process.env.REACT_APP_LIO_API_URL}upload/${item.imageUrl}`} className={classes.photo} />
                                         </TableCell>
                                         <TableCell align="center">{item.title}</TableCell>
                                         <TableCell align="center">{item.categoryName}</TableCell>
@@ -610,7 +607,7 @@ export default function InvestmentsPage() {
             </Dialog>
 
             {/* second step */}
-            <Dialog open={dialogIndex == 2} onClose={handleClose}>
+            <Dialog open={dialogIndex === 2} onClose={handleClose}>
                 <DialogTitle>Investment Overview</DialogTitle>
                 <DialogContent>
                     <TextField
@@ -714,7 +711,7 @@ export default function InvestmentsPage() {
             </Dialog>
 
             {/* third step */}
-            <Dialog open={dialogIndex == 3} onClose={handleClose}>
+            <Dialog open={dialogIndex === 3} onClose={handleClose}>
                 <DialogTitle>Investment PitchDetail</DialogTitle>
                 <DialogContent>
                     <Button variant="contained" onClick={addPitchDetail}>Add Detail</Button>
@@ -759,7 +756,7 @@ export default function InvestmentsPage() {
             </Dialog>
 
             {/* fourth step */}
-            <Dialog open={dialogIndex == 4} onClose={handleClose}>
+            <Dialog open={dialogIndex === 4} onClose={handleClose}>
                 <DialogTitle>Investment Team</DialogTitle>
                 <DialogContent>
                     <Button variant="contained" onClick={addTeamMember}>Add Team</Button>
@@ -816,7 +813,7 @@ export default function InvestmentsPage() {
             </Dialog>
 
             {/* final step */}
-            <Dialog open={dialogIndex == 5} onClose={handleClose}>
+            <Dialog open={dialogIndex === 5} onClose={handleClose}>
                 <DialogTitle>Investment Documents</DialogTitle>
                 <DialogContent>
                     <Button variant="contained" onClick={addDocument}>Add Document</Button>

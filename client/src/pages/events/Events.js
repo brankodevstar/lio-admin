@@ -135,7 +135,7 @@ export default function EventsPage() {
             };
         }
         setErrors(errorObj);
-        const isValidErrors = Object.values(errorObj).filter(item => item.error).length == 0;
+        const isValidErrors = Object.values(errorObj).filter(item => item.error).length === 0;
         return isValidErrors;
     }
 
@@ -272,7 +272,7 @@ export default function EventsPage() {
                                         <TableCell align="center">{index + 1}</TableCell>
                                         <TableCell align="center">{event.title}</TableCell>
                                         <TableCell align="center">
-                                            <img src={`${process.env.REACT_APP_LIO_API_URL}upload/${event.photos[0]}`}  className={classes.eventImg} />
+                                            <img alt="img" src={`${process.env.REACT_APP_LIO_API_URL}upload/${event.photos[0]}`}  className={classes.eventImg} />
                                         </TableCell>
                                         <TableCell align="center">{event.category}</TableCell>
                                         <TableCell align="center">{event.location}</TableCell>

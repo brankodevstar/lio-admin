@@ -9,7 +9,6 @@ module.exports = {
     findById: function (req, res) {
         Event.findById(req.params.id)
             .then(event => {
-                console.log('event ==========> ', event);
                 res.json(event)
             })
             .catch(err => res.status(422).json(err));

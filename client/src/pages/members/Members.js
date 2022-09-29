@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { Grid } from "@material-ui/core";
 import { Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Paper, Button, TextField, Dialog, DialogActions, DialogContent, DialogTitle, Typography } from "@mui/material";
-import { Delete, Edit, Update } from '@mui/icons-material'
+import { Delete, Update } from '@mui/icons-material'
 import Radio from '@mui/material/Radio';
 import RadioGroup from '@mui/material/RadioGroup';
 import FormControlLabel from '@mui/material/FormControlLabel';
@@ -55,10 +55,6 @@ const initErrors = {
         helperText: 'This field is required.'
     },
     caption: {
-        error: false,
-        helperText: 'This field is required.'
-    },
-    firstName: {
         error: false,
         helperText: 'This field is required.'
     },
@@ -161,12 +157,11 @@ export default function MembsersPage() {
             };
         }
         setErrors(errorObj);
-        const isValidErrors = Object.values(errorObj).filter(item => item.error).length == 0;
+        const isValidErrors = Object.values(errorObj).filter(item => item.error).length === 0;
         return isValidErrors;
     }
 
     const handleSave = async () => {
-        // setOpen(false);
         if (validateUserData()) {
             let response;
             userData.createdDt = new Date();
@@ -176,7 +171,7 @@ export default function MembsersPage() {
                 response = await Action.Member.create(userData);
             }
 
-            if (response.statusText == "OK") {
+            if (response.statusText === "OK") {
                 readMember();
                 setOpen(false);
             }
@@ -191,7 +186,7 @@ export default function MembsersPage() {
     }
 
     const deleteMember = async (member) => {
-        const response = await Action.Member.remove(member._id);
+        await Action.Member.remove(member._id);
         readMember();
     }
 
@@ -283,7 +278,7 @@ export default function MembsersPage() {
                                         <TableCell align="center">{member.birthday}</TableCell>
                                         <TableCell align="center">{member.caption}</TableCell>
                                         <TableCell align="center">
-                                            <img src={`${process.env.REACT_APP_LIO_API_URL}upload/${member.avatarUrl}`} className={classes.memberAvatar} />
+                                            <img alt="img" src={`${process.env.REACT_APP_LIO_API_URL}upload/${member.avatarUrl}`} className={classes.memberAvatar} />
                                         </TableCell>
                                         <TableCell align="center">
                                             <Button size="small" startIcon={<Update />} onClick={() => { updateMember(member) }} />

@@ -104,7 +104,7 @@ export default function AnnouncementsPage() {
             };
         }
         setErrors(errorObj);
-        const isValidErrors = Object.values(errorObj).filter(item => item.error).length == 0;
+        const isValidErrors = Object.values(errorObj).filter(item => item.error).length === 0;
         return isValidErrors;
     };
 
@@ -219,7 +219,7 @@ export default function AnnouncementsPage() {
                                         <TableCell align="center">{index + 1}</TableCell>
                                         <TableCell align="center">{announcement.description}</TableCell>
                                         <TableCell align="center">
-                                            <img src={`${process.env.REACT_APP_LIO_API_URL}upload/${announcement.imgUrl}`} className={classes.announcementImg} />
+                                            <img alt="img" src={`${process.env.REACT_APP_LIO_API_URL}upload/${announcement.imgUrl}`} className={classes.announcementImg} />
                                         </TableCell>
                                         <TableCell align="center">{announcement.clickCount}</TableCell>
                                         <TableCell align="center">{announcement.commentCount}</TableCell>

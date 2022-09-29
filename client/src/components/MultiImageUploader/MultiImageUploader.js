@@ -1,7 +1,7 @@
 import React, { useState, Fragment, useEffect } from "react";
 import Button from '@mui/material/Button';
 import { Box } from '@material-ui/core';
-import { Delete, SettingsInputAntennaTwoTone } from '@mui/icons-material';
+import { Delete } from '@mui/icons-material';
 
 // styles
 import useStyles from "./styles";
@@ -17,8 +17,6 @@ function ImageUploader(props) {
     }, [props.photos])
 
     const handleFile = async ({ target }) => {
-        const fileReader = new FileReader();
-        const name = target.accept.includes('image') ? 'images' : 'others';
         const formData = new FormData();
         formData.append('file', target.files[0]);
 
@@ -53,6 +51,7 @@ function ImageUploader(props) {
                     return (
                         <Box variant="outlined" key={index}>
                             <img
+                                alt="Upload Image"
                                 className={classes.uploadedImage}
                                 src={`${process.env.REACT_APP_LIO_API_URL}upload/${file}`} />
                             <Button size="small" startIcon={<Delete />} onClick={() => { deletePath(file) }} />
