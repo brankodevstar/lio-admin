@@ -25,17 +25,6 @@ import Action from "../../action";
 
 import useStyles from "./styles";
 
-// const tableHeaders = [
-//   "No",
-//   "imgUrl",
-//   "name",
-//   "discountText",
-//   "rating",
-//   "locationName",
-//   "location",
-//   "distance",
-// ];
-
 const tableHeaders = [
   "No",
   "Thumbnail",
@@ -44,8 +33,9 @@ const tableHeaders = [
   "Rating",
   "LocationName",
   "Location",
-  "Created",
   "Distance",
+  "Created",
+  "Operation",
 ];
 
 const initialBenefit = {
