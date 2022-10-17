@@ -9,7 +9,8 @@ import {
   BorderAll as TableIcon,
   ArrowBack as ArrowBackIcon,
   People as PeopleIcon,
-  Event as EventIcon
+  Event as EventIcon,
+  Assessment as AssessmentIcon,
 } from "@material-ui/icons";
 import { useTheme } from "@material-ui/styles";
 import { withRouter } from "react-router-dom";
@@ -70,7 +71,7 @@ const structure = [
     id: 7,
     label: "Investments",
     link: "/app/investments",
-    icon: <LocalActivityIcon />,
+    icon: <AssessmentIcon />,
   },
   {
     id: 8,
@@ -131,7 +132,7 @@ function Sidebar({ location }) {
         </IconButton>
       </div>
       <List className={classes.sidebarList}>
-        {structure.map(link => (
+        {structure.map((link) => (
           <SidebarLink
             key={link.id}
             location={location}

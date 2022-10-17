@@ -3,6 +3,7 @@ import Upload from './upload';
 import Announcement from './announcements';
 import Investments from './investments';
 import Events from './events';
+import Benefits from './benefit';
 
 const allAction = {
 	Member,
@@ -10,6 +11,7 @@ const allAction = {
 	Announcement,
 	Investments,
 	Events,
+	Benefits
 };
 
 export default allAction;
