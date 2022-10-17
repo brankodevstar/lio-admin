@@ -4,6 +4,7 @@ module.exports = {
     findAll: function (req, res) {
         User.find(req.query)
             .then(users => {
+                console.log('user list ==========> ', users);
                 res.json(users)
             })
             .catch(err => res.status(422).json(err));

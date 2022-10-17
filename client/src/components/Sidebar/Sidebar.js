@@ -9,6 +9,7 @@ import {
   BorderAll as TableIcon,
   ArrowBack as ArrowBackIcon,
   People as PeopleIcon,
+  Event as EventIcon
 } from "@material-ui/icons";
 import { useTheme } from "@material-ui/styles";
 import { withRouter } from "react-router-dom";
@@ -75,6 +76,12 @@ const structure = [
     id: 8,
     label: "Events",
     link: "/app/events",
+    icon: <EventIcon />,
+  },
+  {
+    id: 9,
+    label: "Benefits",
+    link: "/app/benefits",
     icon: <LocalActivityIcon />,
   },
 ];
