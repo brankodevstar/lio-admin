@@ -1,6 +1,6 @@
 {
-  "name": "ImageUploader",
-  "version": "0.0.0",
-  "private": true,
-  "main": "ImageUploader.js"
+    "name": "ImageUploader",
+    "version": "0.0.0",
+    "private": true,
+    "main": "ImageUploader.js"
 }

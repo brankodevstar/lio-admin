@@ -6,12 +6,12 @@ import Events from "./events";
 import Benefits from "./benefit";
 
 const allAction = {
-  Member,
-  Upload,
-  Announcement,
-  Investments,
-  Events,
-  Benefits,
+    Member,
+    Upload,
+    Announcement,
+    Investments,
+    Events,
+    Benefits,
 };
 
 export default allAction;
