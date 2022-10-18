@@ -28,7 +28,7 @@ export default function BigStat(props) {
 
           <Select
             value={value}
-            onChange={e => setValue(e.target.value)}
+            onChange={(e) => setValue(e.target.value)}
             input={
               <Input
                 disableUnderline

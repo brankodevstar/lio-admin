@@ -1,15 +1,15 @@
-const router = require('express').Router();
-const investmentController = require('../controllers/investmentController');
+const router = require("express").Router();
+const investmentController = require("../controllers/investmentController");
 
 router
-    .route('/')
-    .get(investmentController.findAll)
-    .post(investmentController.create);
+  .route("/")
+  .get(investmentController.findAll)
+  .post(investmentController.create);
 
 router
-    .route('/:id')
-    .get(investmentController.findById)
-    .put(investmentController.update)
-    .delete(investmentController.remove)
+  .route("/:id")
+  .get(investmentController.findById)
+  .put(investmentController.update)
+  .delete(investmentController.remove);
 
 module.exports = router;

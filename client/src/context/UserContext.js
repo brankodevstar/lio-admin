@@ -55,12 +55,12 @@ function loginUser(dispatch, login, password, history, setIsLoading, setError) {
 
   if (!!login && !!password) {
     setTimeout(() => {
-      localStorage.setItem('id_token', 1)
-      setError(null)
-      setIsLoading(false)
-      dispatch({ type: 'LOGIN_SUCCESS' })
+      localStorage.setItem("id_token", 1);
+      setError(null);
+      setIsLoading(false);
+      dispatch({ type: "LOGIN_SUCCESS" });
 
-      history.push('/app/members')
+      history.push("/app/members");
     }, 2000);
   } else {
     dispatch({ type: "LOGIN_FAILURE" });

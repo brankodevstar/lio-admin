@@ -1,6 +1,6 @@
 import { makeStyles } from "@material-ui/styles";
 
-export default makeStyles(theme => ({
+export default makeStyles((theme) => ({
   title: {
     display: "flex",
     flexDirection: "row",
@@ -43,6 +43,6 @@ export default makeStyles(theme => ({
     },
   },
   bodyWidgetOverflow: {
-    overflow: 'auto'
-  }
+    overflow: "auto",
+  },
 }));

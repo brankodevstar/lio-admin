@@ -1,6 +1,6 @@
 {
-    "name": "Announcements",
-    "version": "0.0.0",
-    "main": "Announcements.js",
-    "private": true
-  }
+  "name": "Announcements",
+  "version": "0.0.0",
+  "main": "Announcements.js",
+  "private": true
+}

@@ -1,6 +1,6 @@
 {
-    "name": "Benefits",
-    "version": "0.0.0",
-    "main": "Benefits.js",
-    "private": true
-  }
+  "name": "Benefits",
+  "version": "0.0.0",
+  "main": "Benefits.js",
+  "private": true
+}

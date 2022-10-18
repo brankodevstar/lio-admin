@@ -13,7 +13,7 @@ export default function UserAvatar({ color = "primary", ...props }) {
 
   var letters = props.name
     .split(" ")
-    .map(word => word[0])
+    .map((word) => word[0])
     .join("");
 
   return (

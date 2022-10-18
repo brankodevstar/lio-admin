@@ -1,6 +1,6 @@
 import { makeStyles } from "@material-ui/styles";
 
-export default makeStyles(theme => ({
+export default makeStyles((theme) => ({
   link: {
     textDecoration: "none",
     "&:hover, &:focus": {
@@ -8,10 +8,10 @@ export default makeStyles(theme => ({
     },
   },
   externalLink: {
-    display: 'flex',
-    justifyContent: 'center',
-    alignItems: 'center',
-    textDecoration: 'none'
+    display: "flex",
+    justifyContent: "center",
+    alignItems: "center",
+    textDecoration: "none",
   },
   linkActive: {
     backgroundColor: theme.palette.background.light,

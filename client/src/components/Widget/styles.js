@@ -1,6 +1,6 @@
 import { makeStyles } from "@material-ui/styles";
 
-export default makeStyles(theme => ({
+export default makeStyles((theme) => ({
   widgetWrapper: {
     display: "flex",
     minHeight: "100%",
@@ -41,6 +41,6 @@ export default makeStyles(theme => ({
     },
   },
   noWidgetShadow: {
-    boxShadow: 'none'
-  }
+    boxShadow: "none",
+  },
 }));

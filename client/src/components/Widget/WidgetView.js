@@ -5,7 +5,7 @@ import {
   IconButton,
   Menu,
   MenuItem,
-  withStyles
+  withStyles,
 } from "@material-ui/core";
 import { MoreVert as MoreIcon } from "@material-ui/icons";
 import Typography from "@material-ui/core/es/Typography/Typography";
@@ -48,7 +48,7 @@ const Widget = ({
       <div
         className={classnames(classes.widgetBody, {
           [classes.noPadding]: noBodyPadding,
-          [bodyClass]: bodyClass
+          [bodyClass]: bodyClass,
         })}
       >
         {children}
@@ -77,34 +77,34 @@ const Widget = ({
   </div>
 );
 
-const styles = theme => ({
+const styles = (theme) => ({
   widgetWrapper: {
     display: "flex",
-    minHeight: "100%"
+    minHeight: "100%",
   },
   widgetHeader: {
     padding: theme.spacing.unit * 3,
     paddingBottom: theme.spacing.unit,
     display: "flex",
     justifyContent: "space-between",
-    alignItems: "center"
+    alignItems: "center",
   },
   widgetRoot: {
-    boxShadow: theme.customShadows.widget
+    boxShadow: theme.customShadows.widget,
   },
   widgetBody: {
     paddingBottom: theme.spacing.unit * 3,
     paddingRight: theme.spacing.unit * 3,
-    paddingLeft: theme.spacing.unit * 3
+    paddingLeft: theme.spacing.unit * 3,
   },
   noPadding: {
-    padding: 0
+    padding: 0,
   },
   paper: {
     display: "flex",
     flexDirection: "column",
     flexGrow: 1,
-    overflow: "hidden"
+    overflow: "hidden",
   },
   moreButton: {
     margin: -theme.spacing.unit,
@@ -114,9 +114,9 @@ const styles = theme => ({
     color: theme.palette.text.hint,
     "&:hover": {
       backgroundColor: theme.palette.primary.main,
-      color: "rgba(255, 255, 255, 0.35)"
-    }
-  }
+      color: "rgba(255, 255, 255, 0.35)",
+    },
+  },
 });
 
 export default withStyles(styles, { withTheme: true })(Widget);

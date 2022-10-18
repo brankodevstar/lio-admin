@@ -12,11 +12,11 @@ const positions = [
   toast.POSITION.TOP_RIGHT,
   toast.POSITION.BOTTOM_LEFT,
   toast.POSITION.BOTTOM_CENTER,
-  toast.POSITION.BOTTOM_RIGHT
+  toast.POSITION.BOTTOM_RIGHT,
 ];
 
 export default compose(
-  withStyles(theme => ({
+  withStyles((theme) => ({
     /*progress: {
       visibility: "hidden"
     },
@@ -34,18 +34,18 @@ export default compose(
   withState("notificationsPosition", "setNotificationPosition", 2),
   withState("errorToastId", "setErrorToastId", null),
   withHandlers({
-    sendNotification: props => (componentProps, options) => {
+    sendNotification: (props) => (componentProps, options) => {
       return toast(
         <Notification
           {...componentProps}
           className={props.classes.notificationComponent}
         />,
-        options
+        options,
       );
-    }
+    },
   }),
   withHandlers({
-    retryErrorNotification: props => () => {
+    retryErrorNotification: (props) => () => {
       const componentProps = {
         type: "message",
         message: "Message was sent successfully!",
@@ -55,13 +55,13 @@ export default compose(
 
       toast.update(props.errorToastId, {
         render: <Notification {...componentProps} />,
-        type: "success"
+        type: "success",
       });
       props.setErrorToastId(null);
-    }
+    },
   }),
   withHandlers({
-    handleNotificationCall: props => notificationType => {
+    handleNotificationCall: (props) => (notificationType) => {
       let componentProps;
 
       if (props.errorToastId && notificationType === "error") return;
@@ -72,7 +72,7 @@ export default compose(
             type: "feedback",
             message: "New user feedback received",
             variant: "contained",
-            color: "primary"
+            color: "primary",
           };
           break;
         case "error":
@@ -82,7 +82,7 @@ export default compose(
             variant: "contained",
             color: "secondary",
             extraButton: "Resend",
-            extraButtonClick: props.retryErrorNotification
+            extraButtonClick: props.retryErrorNotification,
           };
           break;
         default:
@@ -90,7 +90,7 @@ export default compose(
             type: "shipped",
             message: "The item was shipped",
             variant: "contained",
-            color: "success"
+            color: "success",
           };
       }
 
@@ -100,13 +100,13 @@ export default compose(
         progressClassName: props.classes.progress,
         onClose:
           notificationType === "error" && (() => props.setErrorToastId(null)),
-        className: props.classes.notification
+        className: props.classes.notification,
       });
 
       if (notificationType === "error") props.setErrorToastId(toastId);
     },
-    changeNotificationPosition: props => positionId => {
+    changeNotificationPosition: (props) => (positionId) => {
       props.setNotificationPosition(positionId);
-    }
-  })
+    },
+  }),
 )(NotificationsView);

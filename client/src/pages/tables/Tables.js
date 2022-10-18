@@ -31,11 +31,11 @@ const datatableData = [
   ["Gaston Festus", "Example Inc.", "Tampa", "FL"],
 ];
 
-const useStyles = makeStyles(theme => ({
+const useStyles = makeStyles((theme) => ({
   tableOverflow: {
-    overflow: 'auto'
-  }
-}))
+    overflow: "auto",
+  },
+}));
 
 export default function Tables() {
   const classes = useStyles();
@@ -54,7 +54,12 @@ export default function Tables() {
           />
         </Grid>
         <Grid item xs={12}>
-          <Widget title="Material-UI Table" upperTitle noBodyPadding bodyClass={classes.tableOverflow}>
+          <Widget
+            title="Material-UI Table"
+            upperTitle
+            noBodyPadding
+            bodyClass={classes.tableOverflow}
+          >
             <Table data={mock.table} />
           </Widget>
         </Grid>

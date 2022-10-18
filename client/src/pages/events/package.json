@@ -1,6 +1,6 @@
 {
-    "name": "Events",
-    "version": "0.0.0",
-    "main": "Events.js",
-    "private": true
-  }
+  "name": "Events",
+  "version": "0.0.0",
+  "main": "Events.js",
+  "private": true
+}

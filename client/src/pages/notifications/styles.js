@@ -1,7 +1,7 @@
 import { makeStyles } from "@material-ui/styles";
 import tinycolor from "tinycolor2";
 
-export default makeStyles(theme => ({
+export default makeStyles((theme) => ({
   layoutContainer: {
     height: 200,
     display: "flex",
@@ -14,9 +14,7 @@ export default makeStyles(theme => ({
     position: "relative",
   },
   layoutText: {
-    color: tinycolor(theme.palette.background.light)
-      .darken()
-      .toHexString(),
+    color: tinycolor(theme.palette.background.light).darken().toHexString(),
   },
   layoutButtonsRow: {
     width: "100%",
@@ -80,6 +78,6 @@ export default makeStyles(theme => ({
     paddingRight: theme.spacing(4),
   },
   widgetHeader: {
-    paddingBottom: 8
-  }
+    paddingBottom: 8,
+  },
 }));

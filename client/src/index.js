@@ -9,7 +9,7 @@ import * as serviceWorker from "./serviceWorker";
 import { LayoutProvider } from "./context/LayoutContext";
 import { UserProvider } from "./context/UserContext";
 
-require('dotenv').config();
+require("dotenv").config();
 
 ReactDOM.render(
   <LayoutProvider>

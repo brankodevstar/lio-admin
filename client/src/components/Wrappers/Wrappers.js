@@ -9,7 +9,7 @@ import { useTheme, makeStyles } from "@material-ui/styles";
 import classnames from "classnames";
 
 // styles
-var useStyles = makeStyles(theme => ({
+var useStyles = makeStyles((theme) => ({
   badge: {
     fontWeight: 600,
     height: 16,
@@ -28,7 +28,7 @@ function Badge({ children, colorBrightness, color, ...props }) {
 
   return (
     <Styled>
-      {styledProps => (
+      {(styledProps) => (
         <BadgeBase
           classes={{
             badge: classnames(classes.badge, styledProps.classes.badge),
@@ -172,7 +172,7 @@ function getFontSize(size, variant = "", theme) {
 }
 
 function createStyled(styles, options) {
-  var Styled = function(props) {
+  var Styled = function (props) {
     const { children, ...other } = props;
     return children(other);
   };

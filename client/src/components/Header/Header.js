@@ -1,10 +1,5 @@
 import React, { useState } from "react";
-import {
-  AppBar,
-  Toolbar,
-  IconButton,
-  Menu,
-} from "@material-ui/core";
+import { AppBar, Toolbar, IconButton, Menu } from "@material-ui/core";
 import {
   Menu as MenuIcon,
   Person as AccountIcon,
@@ -69,7 +64,7 @@ export default function Header(props) {
           )}
         </IconButton>
         <Typography variant="h6" weight="medium" className={classes.logotype}>
-          LIO Admin Panel 
+          LIO Admin Panel
         </Typography>
         <div className={classes.grow} />
         <IconButton
@@ -77,7 +72,7 @@ export default function Header(props) {
           color="inherit"
           className={classes.headerMenuButton}
           aria-controls="profile-menu"
-          onClick={e => setProfileMenu(e.currentTarget)}
+          onClick={(e) => setProfileMenu(e.currentTarget)}
         >
           <AccountIcon classes={{ root: classes.headerIcon }} />
         </IconButton>
@@ -92,7 +87,7 @@ export default function Header(props) {
         >
           <div className={classes.profileMenuUser}>
             <Typography variant="h4" weight="medium">
-              John Smith
+              Admin
             </Typography>
           </div>
           <div className={classes.profileMenuUser}>
