@@ -9,6 +9,10 @@ import {
     TableRow,
     Paper,
     Typography,
+    FormControl,
+    InputLabel,
+    Select,
+    MenuItem,
 } from "@mui/material";
 import { Delete, Update } from "@mui/icons-material";
 import Button from "@mui/material/Button";
@@ -20,7 +24,7 @@ import DialogTitle from "@mui/material/DialogTitle";
 
 import PageTitle from "../../components/PageTitle";
 import ImageUploader from "../../components/ImageUploader/ImageUploader";
-
+import { TYPE_NAME } from "../../constant";
 import Action from "../../action";
 
 import useStyles from "./styles";
@@ -29,6 +33,7 @@ const tableHeaders = [
     "No",
     "Thumbnail",
     "Name",
+    "Category",
     "DiscountText",
     "Rating",
     "LocationName",
@@ -41,6 +46,7 @@ const tableHeaders = [
 const initialBenefit = {
     imgUrl: "",
     name: "",
+    type: 1,
     discountText: "",
     rating: 0,
     locationName: "",
@@ -54,6 +60,10 @@ const initErrors = {
         helperText: "This field is required.",
     },
     name: {
+        error: false,
+        helperText: "This field is required.",
+    },
+    type: {
         error: false,
         helperText: "This field is required.",
     },
@@ -101,6 +111,15 @@ export default function BenefitPage() {
                 ...errorObj,
                 name: {
                     ...errorObj.name,
+                    error: true,
+                },
+            };
+        }
+        if (!benefitData.type) {
+            errorObj = {
+                ...errorObj,
+                type: {
+                    ...errorObj.type,
                     error: true,
                 },
             };
@@ -262,6 +281,9 @@ export default function BenefitPage() {
                                             {benefit.name}
                                         </TableCell>
                                         <TableCell align="center">
+                                            {TYPE_NAME[benefit.type]}
+                                        </TableCell>
+                                        <TableCell align="center">
                                             {benefit.discountText}
                                         </TableCell>
                                         <TableCell align="center">
@@ -335,6 +357,28 @@ export default function BenefitPage() {
                         }
                         onBlur={handleValid}
                     />
+                    <FormControl fullWidth style={{ marginTop: 10 }}>
+                        <InputLabel id="type-select-label">Type</InputLabel>
+                        <Select
+                            labelId="type-select-label"
+                            value={benefitData.type}
+                            label="Type"
+                            name="type"
+                            onChange={handleChange}
+                            required
+                            error={errors.type.error}
+                            helperText={
+                                errors.type.error ? errors.type.helperText : ""
+                            }
+                            onBlur={handleValid}
+                        >
+                            {TYPE_NAME.map((item, index) => (
+                                <MenuItem key={index} value={index}>
+                                    {item}
+                                </MenuItem>
+                            ))}
+                        </Select>
+                    </FormControl>
                     <TextField
                         margin="dense"
                         id="discountText"

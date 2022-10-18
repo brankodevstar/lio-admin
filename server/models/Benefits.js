@@ -11,6 +11,10 @@ const benefitSchema = new Schema({
         type: String,
         required: true,
     },
+    type: {
+        type: Number,
+        required: true,
+    },
     discountText: {
         type: String,
         required: false,

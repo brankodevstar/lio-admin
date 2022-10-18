@@ -26,6 +26,7 @@ import Action from "../../action";
 import PageTitle from "../../components/PageTitle";
 import ImageUploader from "../../components/ImageUploader/ImageUploader";
 import useStyles from "./styles";
+import { TYPE_NAME } from "../../constant";
 
 const tableHeaders = [
     "No",
@@ -258,7 +259,7 @@ export default function InvestmentsPage() {
     }, []);
 
     const readInvestment = async () => {
-        const response = await Action.Investments.list({ type: 1 });
+        const response = await Action.Investments.list({});
         if (response.data) {
             setInvestments(response.data);
         }
@@ -476,7 +477,7 @@ export default function InvestmentsPage() {
                                             {index + 1}
                                         </TableCell>
                                         <TableCell align="center">
-                                            {item.type}
+                                            {TYPE_NAME[item.type]}
                                         </TableCell>
                                         <TableCell align="center">
                                             <img
@@ -537,7 +538,7 @@ export default function InvestmentsPage() {
             <Dialog open={dialogIndex === 1} onClose={handleClose}>
                 <DialogTitle>Investment Main Info</DialogTitle>
                 <DialogContent>
-                    <FormControl fullWidth>
+                    <FormControl fullWidth style={{ marginTop: 10 }}>
                         <InputLabel id="type-select-label">Type</InputLabel>
                         <Select
                             labelId="type-select-label"
@@ -545,10 +546,18 @@ export default function InvestmentsPage() {
                             label="Type"
                             name="type"
                             onChange={handleChange}
+                            required
+                            error={errors.type.error}
+                            helperText={
+                                errors.type.error ? errors.type.helperText : ""
+                            }
+                            onBlur={handleValid}
                         >
-                            <MenuItem value={1}>Featured</MenuItem>
-                            <MenuItem value={2}>Sports</MenuItem>
-                            <MenuItem value={3}>Food</MenuItem>
+                            {TYPE_NAME.map((item, index) => (
+                                <MenuItem key={index} value={index}>
+                                    {item}
+                                </MenuItem>
+                            ))}
                         </Select>
                     </FormControl>
                     <Typography>
