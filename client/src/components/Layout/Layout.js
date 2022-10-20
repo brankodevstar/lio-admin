@@ -22,6 +22,7 @@ import Announcements from "../../pages/announcements";
 import Investments from "../../pages/investments";
 import Events from "../../pages/events";
 import Benefits from "../../pages/benefits";
+import Gallerys from "../../pages/gallerys";
 
 // context
 import { useLayoutState } from "../../context/LayoutContext";
@@ -70,6 +71,7 @@ function Layout(props) {
                         />
                         <Route path="/app/events" component={Events} />
                         <Route path="/app/benefits" component={Benefits} />
+                        <Route path="/app/gallerys" component={Gallerys} />
                     </Switch>
                 </div>
             </>

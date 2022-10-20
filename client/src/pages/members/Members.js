@@ -15,6 +15,7 @@ import {
     DialogContent,
     DialogTitle,
     Typography,
+    Box,
 } from "@mui/material";
 import { Delete, Update } from "@mui/icons-material";
 import Radio from "@mui/material/Radio";
@@ -53,6 +54,7 @@ const initUser = {
     caption: "",
     avatarUrl: "",
     createdDt: "",
+    investmentCompany: [],
 };
 
 const initErrors = {
@@ -218,7 +220,6 @@ export default function MembsersPage() {
     };
 
     useEffect(() => {
-        console.log("members list called!!");
         readMember();
     }, []);
 
@@ -229,19 +230,51 @@ export default function MembsersPage() {
         }
     };
 
-    const setUploadedAvatar = (path) => {
+    const setUploadedAvatar = (path, parentFieldName, index, fieldName) => {
+        if (index !== undefined) {
+            let investCompany = userData.investmentCompany;
+            investCompany[index].companyAvatarUrl = path;
+            setUserData({
+                ...userData,
+                investmentCompany: investCompany
+            });
+        } else {
+            setUserData({
+                ...userData,
+                avatarUrl: path,
+            });
+            setErrors({
+                ...errors,
+                avatarUrl: {
+                    ...errors.avatarUrl,
+                    error: false,
+                },
+            });
+        }        
+    };
+
+    const addInvestCompany = () => {
+        let investCompany = {
+            companyName: "",
+            companyAvatarUrl: "",
+            investedValue: 0,
+            currentValue: 0,
+        }
+        let currentInvestCompanyList = userData.investmentCompany;
+        currentInvestCompanyList.push(investCompany)
         setUserData({
             ...userData,
-            avatarUrl: path,
-        });
-        setErrors({
-            ...errors,
-            avatarUrl: {
-                ...errors.avatarUrl,
-                error: false,
-            },
-        });
-    };
+            investmentCompany: currentInvestCompanyList
+        })
+    }
+
+    const removeInvestCompany = (index) => {
+        let currentInvestCompanyList = userData.investmentCompany.splice(index, 1)
+        setUserData({
+            ...userData,
+            investmentCompany: currentInvestCompanyList
+        })
+    }
 
     const handleValid = (e) => {
         const { name, value } = e.target;
@@ -271,6 +304,18 @@ export default function MembsersPage() {
             [name]: value,
         });
     };
+
+    const handleInvestCompanyInfoChange = (e) => {
+        const { name, value } = e.target;
+        const key = name.split("-")[2];
+        const fieldName = name.split("-")[1]
+        let investCompany = userData.investmentCompany;
+        investCompany[key][fieldName] = value;
+        setUserData({
+            ...userData,
+            investmentCompany: investCompany,
+        });
+    }
 
     return (
         <>
@@ -535,6 +580,74 @@ export default function MembsersPage() {
                         setPath={setUploadedAvatar}
                         filePath={userData.avatarUrl}
                     />
+                    <Box
+                        variant="outlined"
+                        className={classes.highlightContainer}
+                    >                        
+                        <Typography>
+                            Company List for Investment
+                        </Typography>
+                        <Button variant="contained" onClick={addInvestCompany}>
+                            Add Compay
+                        </Button>
+                        {
+                            userData.investmentCompany.length > 0
+                            &&
+                            userData.investmentCompany.map((company, index) => (
+                                <Grid className={classes.companyContainer} container key={index}>
+                                    <Grid item className={classes.highlightContainer} xs={10}>
+                                        <TextField
+                                            variant="standard"
+                                            margin="dense"
+                                            name={"investCompany-companyName-" + index}
+                                            type="text"
+                                            fullWidth
+                                            value={company.companyName}
+                                            onChange={handleInvestCompanyInfoChange}
+                                        />
+                                        <ImageUploader
+                                            setPath={setUploadedAvatar}
+                                            filePath={company.companyAvatarUrl}
+                                            index={index}
+                                            parentFieldName="investmentCompany"
+                                            fieldName="companyAvatarUrl"
+                                        />
+                                        <TextField
+                                            variant="standard"
+                                            margin="dense"
+                                            name={"investCompany-investedValue-" + index}
+                                            type="number"
+                                            fullWidth
+                                            value={company.investedValue}
+                                            onChange={handleInvestCompanyInfoChange}
+                                        />
+                                        <TextField
+                                            variant="standard"
+                                            margin="dense"
+                                            name={"investCompany-currentValue-" + index}
+                                            type="number"
+                                            fullWidth
+                                            value={company.currentValue}
+                                            onChange={handleInvestCompanyInfoChange}
+                                        />
+                                    </Grid>                                    
+                                    <Grid item xs={2} align="right">
+                                        <Button
+                                            variant="contained"
+                                            color="secondary"
+                                            onClick={() =>
+                                            removeInvestCompany(
+                                                index,
+                                            )
+                                        }
+                                        >
+                                            -
+                                        </Button>
+                                    </Grid>
+                                </Grid>
+                            ))
+                        }
+                    </Box>
                 </DialogContent>
                 <DialogActions>
                     <Button onClick={handleClose}>Cancel</Button>

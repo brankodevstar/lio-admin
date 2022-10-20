@@ -11,6 +11,7 @@ import {
     People as PeopleIcon,
     Event as EventIcon,
     Assessment as AssessmentIcon,
+    Image as ImageIcon,
 } from "@material-ui/icons";
 import { useTheme } from "@material-ui/styles";
 import { withRouter } from "react-router-dom";
@@ -84,6 +85,12 @@ const structure = [
         label: "Benefits",
         link: "/app/benefits",
         icon: <LocalActivityIcon />,
+    },
+    {
+        id: 10,
+        label: "Gallerys",
+        link: "/app/gallerys",
+        icon: <ImageIcon />,
     },
 ];
 

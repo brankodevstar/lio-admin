@@ -44,6 +44,25 @@ const userSchema = new Schema({
     createdDt: {
         type: String,
     },
+    investmentCompany: {
+        type: [
+            {
+                companyName: {
+                    type: String,
+                },
+                companyAvatarUrl: {
+                    type: String
+                },
+                investedValue: {
+                    type: Number
+                },
+                currentValue: {
+                    type: Number
+                }
+            }
+        ],
+        default: [],
+    }
 });
 
 const User = mongoose.model("User", userSchema);

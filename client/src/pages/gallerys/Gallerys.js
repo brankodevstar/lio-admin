@@ -27,22 +27,17 @@ import useStyles from "./styles";
 
 const tableHeaders = [
     "No",
-    "Photo",
     "Title",
-    "Category",
-    "Location",
     "Description",
+    "Photo",
     "Created Date",
     "Operation",
 ];
 
-const initialEvent = {
-    photos: [],
+const initialGallery = {
     title: "",
-    category: "",
-    location: "",
     description: "",
-    createdDt: "",
+    photos: [],
 };
 
 const initErrors = {
@@ -54,31 +49,23 @@ const initErrors = {
         error: false,
         helperText: "This field is required.",
     },
-    category: {
-        error: false,
-        helperText: "This field is required.",
-    },
-    location: {
-        error: false,
-        helperText: "This field is required.",
-    },
     description: {
         error: false,
         helperText: "This field is required.",
     },
 };
 
-export default function EventsPage() {
-    const [eventList, setEventList] = useState([]);
+export default function GallerysPage() {
+    const [galleryList, setGalleryList] = useState([]);
     const [open, setOpen] = useState(false);
-    const [eventData, setEventData] = useState(initialEvent);
+    const [galleryData, setGalleryData] = useState(initialGallery);
     const [errors, setErrors] = useState(initErrors);
 
     var classes = useStyles();
 
     const handleClickOpen = () => {
-        setEventData({
-            ...initialEvent,
+        setGalleryData({
+            ...initialGallery,
             photos: [],
         });
         setErrors(initErrors);
@@ -86,16 +73,16 @@ export default function EventsPage() {
     };
 
     const handleClose = () => {
-        setEventData({
-            ...initialEvent,
+        setGalleryData({
+            ...initialGallery,
             photos: [],
         });
         setOpen(false);
     };
 
-    const validateEventData = () => {
+    const validateGalleryData = () => {
         let errorObj = errors;
-        if (!eventData.title) {
+        if (!galleryData.title) {
             errorObj = {
                 ...errorObj,
                 title: {
@@ -104,16 +91,7 @@ export default function EventsPage() {
                 },
             };
         }
-        if (!eventData.category) {
-            errorObj = {
-                ...errorObj,
-                category: {
-                    ...errorObj.category,
-                    error: true,
-                },
-            };
-        }
-        if (!eventData.description) {
+        if (!galleryData.description) {
             errorObj = {
                 ...errorObj,
                 description: {
@@ -122,17 +100,7 @@ export default function EventsPage() {
                 },
             };
         }
-        if (!eventData.location) {
-            errorObj = {
-                ...errorObj,
-                location: {
-                    ...errorObj.location,
-                    error: true,
-                },
-            };
-        }
-
-        if (eventData.photos.length === 0) {
+        if (galleryData.photos.length === 0) {
             errorObj = {
                 ...errorObj,
                 photos: {
@@ -148,17 +116,17 @@ export default function EventsPage() {
     };
 
     const handleSave = async () => {
-        if (validateEventData()) {
+        if (validateGalleryData()) {
             let response;
-            eventData.createdDt = new Date();
-            if (eventData._id) {
-                response = await Action.Events.update(eventData._id, eventData);
+            galleryData.createdDt = new Date();
+            if (galleryData._id) {
+                response = await Action.Gallerys.update(galleryData._id, galleryData);
             } else {
-                response = await Action.Events.create(eventData);
+                response = await Action.Gallerys.create(galleryData);
             }
 
             if (response.statusText === "OK") {
-                getEventList();
+                getGalleryList();
                 setOpen(false);
             }
         } else {
@@ -167,33 +135,33 @@ export default function EventsPage() {
     };
 
     useEffect(() => {
-        getEventList();
+        getGalleryList();
     }, []);
 
-    const getEventList = async (params) => {
-        const response = await Action.Events.getList({});
+    const getGalleryList = async (params) => {
+        const response = await Action.Gallerys.getList({});
         if (response.data) {
-            setEventList(response.data);
+            setGalleryList(response.data);
         }
     };
 
-    const updateEvent = (event) => {
-        setEventData(event);
+    const updateGallery = (gallery) => {
+        setGalleryData(gallery);
         setOpen(true);
     };
 
-    const deleteEvent = async (event) => {
-        const response = await Action.Events.remove(event._id);
+    const deleteGallery = async (gallery) => {
+        const response = await Action.Gallerys.remove(gallery._id);
         if (response.statusText === "OK") {
-            getEventList();
+            getGalleryList();
         }
     };
 
     const addPath = (path) => {
-        let photos = eventData.photos;
+        let photos = galleryData.photos;
         photos.push(path);
-        setEventData({
-            ...eventData,
+        setGalleryData({
+            ...galleryData,
             photos: photos,
         });
         if (photos.length > 0) {
@@ -208,10 +176,10 @@ export default function EventsPage() {
     };
 
     const deletePath = (path) => {
-        let photos = eventData.photos;
+        let photos = galleryData.photos;
         let filteredPhotos = photos.filter((photo) => photo !== path);
-        setEventData({
-            ...eventData,
+        setGalleryData({
+            ...galleryData,
             photos: filteredPhotos,
         });
         if (filteredPhotos.length === 0) {
@@ -248,15 +216,15 @@ export default function EventsPage() {
 
     const handleChange = (e) => {
         const { name, value } = e.target;
-        setEventData({
-            ...eventData,
+        setGalleryData({
+            ...galleryData,
             [name]: value,
         });
     };
 
     return (
         <>
-            <PageTitle title="Events" />
+            <PageTitle title="Gallerys" />
             <Grid container spacing={4}>
                 <Grid item xs={12} align="right">
                     <Button variant="contained" onClick={handleClickOpen}>
@@ -265,7 +233,7 @@ export default function EventsPage() {
                 </Grid>
                 <Grid item xs={12}>
                     <TableContainer component={Paper}>
-                        <Table aria-label="Events Table">
+                        <Table aria-label="Gallerys Table">
                             <TableHead>
                                 <TableRow>
                                     {tableHeaders.map((header, index) => (
@@ -276,7 +244,7 @@ export default function EventsPage() {
                                 </TableRow>
                             </TableHead>
                             <TableBody>
-                                {eventList.map((event, index) => (
+                                {galleryList.map((gallery, index) => (
                                     <TableRow
                                         key={index}
                                         sx={{
@@ -289,40 +257,34 @@ export default function EventsPage() {
                                             {index + 1}
                                         </TableCell>
                                         <TableCell align="center">
-                                            {event.title}
+                                            {gallery.title}
+                                        </TableCell>
+                                        <TableCell align="center">
+                                            {gallery.description}
                                         </TableCell>
                                         <TableCell align="center">
                                             <img
                                                 alt="img"
-                                                src={`${process.env.REACT_APP_LIO_API_URL}upload/${event.photos[0]}`}
-                                                className={classes.eventImg}
+                                                src={`${process.env.REACT_APP_LIO_API_URL}upload/${gallery.photos[0]}`}
+                                                className={classes.galleryImg}
                                             />
                                         </TableCell>
                                         <TableCell align="center">
-                                            {event.category}
-                                        </TableCell>
-                                        <TableCell align="center">
-                                            {event.location}
-                                        </TableCell>
-                                        <TableCell align="center">
-                                            {event.description}
-                                        </TableCell>
-                                        <TableCell align="center">
-                                            {event.createdDt}
+                                            {gallery.createdDt}
                                         </TableCell>
                                         <TableCell align="center">
                                             <Button
                                                 size="small"
                                                 startIcon={<Update />}
                                                 onClick={() => {
-                                                    updateEvent(event);
+                                                    updateGallery(gallery);
                                                 }}
                                             />
                                             <Button
                                                 size="small"
                                                 startIcon={<Delete />}
                                                 onClick={() => {
-                                                    deleteEvent(event);
+                                                    deleteGallery(gallery);
                                                 }}
                                             />
                                         </TableCell>
@@ -335,7 +297,7 @@ export default function EventsPage() {
             </Grid>
 
             <Dialog open={open} onClose={handleClose}>
-                <DialogTitle>Event Data</DialogTitle>
+                <DialogTitle>Gallery Data</DialogTitle>
                 <DialogContent>
                     <TextField
                         margin="dense"
@@ -345,12 +307,31 @@ export default function EventsPage() {
                         type="text"
                         fullWidth
                         variant="standard"
-                        value={eventData.title}
+                        value={galleryData.title}
                         onChange={handleChange}
                         required
                         error={errors.title.error}
                         helperText={
                             errors.title.error ? errors.title.helperText : ""
+                        }
+                        onBlur={handleValid}
+                    />
+                    <TextField
+                        margin="dense"
+                        id="description"
+                        name="description"
+                        label="Description"
+                        type="text"
+                        fullWidth
+                        variant="standard"
+                        value={galleryData.description}
+                        onChange={handleChange}
+                        required
+                        error={errors.description.error}
+                        helperText={
+                            errors.description.error
+                                ? errors.description.helperText
+                                : ""
                         }
                         onBlur={handleValid}
                     />
@@ -365,64 +346,7 @@ export default function EventsPage() {
                     <MultiImageUploader
                         addPath={addPath}
                         deletePath={deletePath}
-                        photos={eventData.photos}
-                    />
-                    <TextField
-                        margin="dense"
-                        id="category"
-                        name="category"
-                        label="Category"
-                        type="text"
-                        fullWidth
-                        variant="standard"
-                        value={eventData.category}
-                        onChange={handleChange}
-                        required
-                        error={errors.category.error}
-                        helperText={
-                            errors.category.error
-                                ? errors.category.helperText
-                                : ""
-                        }
-                        onBlur={handleValid}
-                    />
-                    <TextField
-                        margin="dense"
-                        id="location"
-                        name="location"
-                        label="Location"
-                        type="text"
-                        fullWidth
-                        variant="standard"
-                        value={eventData.location}
-                        onChange={handleChange}
-                        required
-                        error={errors.location.error}
-                        helperText={
-                            errors.location.error
-                                ? errors.location.helperText
-                                : ""
-                        }
-                        onBlur={handleValid}
-                    />
-                    <TextField
-                        margin="dense"
-                        id="description"
-                        name="description"
-                        label="Description"
-                        type="text"
-                        fullWidth
-                        variant="standard"
-                        value={eventData.description}
-                        onChange={handleChange}
-                        required
-                        error={errors.description.error}
-                        helperText={
-                            errors.description.error
-                                ? errors.description.helperText
-                                : ""
-                        }
-                        onBlur={handleValid}
+                        photos={galleryData.photos}
                     />
                 </DialogContent>
                 <DialogActions>
