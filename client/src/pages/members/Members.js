@@ -236,7 +236,7 @@ export default function MembsersPage() {
             investCompany[index].companyAvatarUrl = path;
             setUserData({
                 ...userData,
-                investmentCompany: investCompany
+                investmentCompany: investCompany,
             });
         } else {
             setUserData({
@@ -250,7 +250,7 @@ export default function MembsersPage() {
                     error: false,
                 },
             });
-        }        
+        }
     };
 
     const addInvestCompany = () => {
@@ -259,22 +259,25 @@ export default function MembsersPage() {
             companyAvatarUrl: "",
             investedValue: 0,
             currentValue: 0,
-        }
+        };
         let currentInvestCompanyList = userData.investmentCompany;
-        currentInvestCompanyList.push(investCompany)
+        currentInvestCompanyList.push(investCompany);
         setUserData({
             ...userData,
-            investmentCompany: currentInvestCompanyList
-        })
-    }
+            investmentCompany: currentInvestCompanyList,
+        });
+    };
 
     const removeInvestCompany = (index) => {
-        let currentInvestCompanyList = userData.investmentCompany.splice(index, 1)
+        let userInvestmentsClone = userData.investmentCompany;
+        userInvestmentsClone = userInvestmentsClone.filter(
+            (item, i) => i !== index,
+        );
         setUserData({
             ...userData,
-            investmentCompany: currentInvestCompanyList
-        })
-    }
+            investmentCompany: userInvestmentsClone,
+        });
+    };
 
     const handleValid = (e) => {
         const { name, value } = e.target;
@@ -308,14 +311,14 @@ export default function MembsersPage() {
     const handleInvestCompanyInfoChange = (e) => {
         const { name, value } = e.target;
         const key = name.split("-")[2];
-        const fieldName = name.split("-")[1]
+        const fieldName = name.split("-")[1];
         let investCompany = userData.investmentCompany;
         investCompany[key][fieldName] = value;
         setUserData({
             ...userData,
             investmentCompany: investCompany,
         });
-    }
+    };
 
     return (
         <>
@@ -583,27 +586,36 @@ export default function MembsersPage() {
                     <Box
                         variant="outlined"
                         className={classes.highlightContainer}
-                    >                        
-                        <Typography>
-                            Company List for Investment
-                        </Typography>
+                    >
+                        <Typography>Company List for Investment</Typography>
                         <Button variant="contained" onClick={addInvestCompany}>
                             Add Compay
                         </Button>
-                        {
-                            userData.investmentCompany.length > 0
-                            &&
+                        {userData.investmentCompany.length > 0 &&
                             userData.investmentCompany.map((company, index) => (
-                                <Grid className={classes.companyContainer} container key={index}>
-                                    <Grid item className={classes.highlightContainer} xs={10}>
+                                <Grid
+                                    className={classes.companyContainer}
+                                    container
+                                    key={index}
+                                >
+                                    <Grid
+                                        item
+                                        className={classes.highlightContainer}
+                                        xs={10}
+                                    >
                                         <TextField
                                             variant="standard"
                                             margin="dense"
-                                            name={"investCompany-companyName-" + index}
+                                            name={
+                                                "investCompany-companyName-" +
+                                                index
+                                            }
                                             type="text"
                                             fullWidth
                                             value={company.companyName}
-                                            onChange={handleInvestCompanyInfoChange}
+                                            onChange={
+                                                handleInvestCompanyInfoChange
+                                            }
                                         />
                                         <ImageUploader
                                             setPath={setUploadedAvatar}
@@ -615,38 +627,45 @@ export default function MembsersPage() {
                                         <TextField
                                             variant="standard"
                                             margin="dense"
-                                            name={"investCompany-investedValue-" + index}
+                                            name={
+                                                "investCompany-investedValue-" +
+                                                index
+                                            }
                                             type="number"
                                             fullWidth
                                             value={company.investedValue}
-                                            onChange={handleInvestCompanyInfoChange}
+                                            onChange={
+                                                handleInvestCompanyInfoChange
+                                            }
                                         />
                                         <TextField
                                             variant="standard"
                                             margin="dense"
-                                            name={"investCompany-currentValue-" + index}
+                                            name={
+                                                "investCompany-currentValue-" +
+                                                index
+                                            }
                                             type="number"
                                             fullWidth
                                             value={company.currentValue}
-                                            onChange={handleInvestCompanyInfoChange}
+                                            onChange={
+                                                handleInvestCompanyInfoChange
+                                            }
                                         />
-                                    </Grid>                                    
+                                    </Grid>
                                     <Grid item xs={2} align="right">
                                         <Button
                                             variant="contained"
                                             color="secondary"
                                             onClick={() =>
-                                            removeInvestCompany(
-                                                index,
-                                            )
-                                        }
+                                                removeInvestCompany(index)
+                                            }
                                         >
                                             -
                                         </Button>
                                     </Grid>
                                 </Grid>
-                            ))
-                        }
+                            ))}
                     </Box>
                 </DialogContent>
                 <DialogActions>
