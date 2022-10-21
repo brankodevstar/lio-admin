@@ -51,18 +51,18 @@ const userSchema = new Schema({
                     type: String,
                 },
                 companyAvatarUrl: {
-                    type: String
+                    type: String,
                 },
                 investedValue: {
-                    type: Number
+                    type: Number,
                 },
                 currentValue: {
-                    type: Number
-                }
-            }
+                    type: Number,
+                },
+            },
         ],
         default: [],
-    }
+    },
 });
 
 const User = mongoose.model("User", userSchema);
