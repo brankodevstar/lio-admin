@@ -299,7 +299,9 @@ export default function BenefitPage() {
                                             {benefit.distance}
                                         </TableCell>
                                         <TableCell align="center">
-                                            {benefit.createdDt}
+                                            {new Date(
+                                                benefit.createdDt,
+                                            ).toLocaleString("en-us")}
                                         </TableCell>
                                         <TableCell align="center">
                                             <Button
@@ -367,9 +369,6 @@ export default function BenefitPage() {
                             onChange={handleChange}
                             required
                             error={errors.type.error}
-                            helperText={
-                                errors.type.error ? errors.type.helperText : ""
-                            }
                             onBlur={handleValid}
                         >
                             {TYPE_NAME.map((item, index) => (

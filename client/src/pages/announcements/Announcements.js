@@ -267,7 +267,9 @@ export default function AnnouncementsPage() {
                                             {announcement.commentCount}
                                         </TableCell>
                                         <TableCell align="center">
-                                            {announcement.createdDt}
+                                            {new Date(
+                                                announcement.createdDt,
+                                            ).toLocaleString("en-us")}
                                         </TableCell>
                                         <TableCell align="center">
                                             <Button

@@ -308,7 +308,9 @@ export default function EventsPage() {
                                             {event.description}
                                         </TableCell>
                                         <TableCell align="center">
-                                            {event.createdDt}
+                                            {new Date(
+                                                event.createdDt,
+                                            ).toLocaleString("en-us")}
                                         </TableCell>
                                         <TableCell align="center">
                                             <Button

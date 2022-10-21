@@ -120,7 +120,10 @@ export default function GallerysPage() {
             let response;
             galleryData.createdDt = new Date();
             if (galleryData._id) {
-                response = await Action.Gallerys.update(galleryData._id, galleryData);
+                response = await Action.Gallerys.update(
+                    galleryData._id,
+                    galleryData,
+                );
             } else {
                 response = await Action.Gallerys.create(galleryData);
             }
@@ -270,7 +273,9 @@ export default function GallerysPage() {
                                             />
                                         </TableCell>
                                         <TableCell align="center">
-                                            {gallery.createdDt}
+                                            {new Date(
+                                                gallery.createdDt,
+                                            ).toLocaleString("en-us")}
                                         </TableCell>
                                         <TableCell align="center">
                                             <Button
