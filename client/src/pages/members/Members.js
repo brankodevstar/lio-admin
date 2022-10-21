@@ -611,12 +611,14 @@ export default function MembsersPage() {
                                                 index
                                             }
                                             type="text"
+                                            label="Company Name"
                                             fullWidth
                                             value={company.companyName}
                                             onChange={
                                                 handleInvestCompanyInfoChange
                                             }
                                         />
+                                        <Typography>Company Avatar</Typography>
                                         <ImageUploader
                                             setPath={setUploadedAvatar}
                                             filePath={company.companyAvatarUrl}
@@ -632,6 +634,7 @@ export default function MembsersPage() {
                                                 index
                                             }
                                             type="number"
+                                            label="Invested Value"
                                             fullWidth
                                             value={company.investedValue}
                                             onChange={
@@ -647,6 +650,7 @@ export default function MembsersPage() {
                                             }
                                             type="number"
                                             fullWidth
+                                            label="Current Value"
                                             value={company.currentValue}
                                             onChange={
                                                 handleInvestCompanyInfoChange
