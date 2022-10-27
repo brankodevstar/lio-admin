@@ -151,6 +151,7 @@ export default function GallerysPage() {
     const updateGallery = (gallery) => {
         setGalleryData(gallery);
         setOpen(true);
+        setErrors(initErrors);
     };
 
     const deleteGallery = async (gallery) => {

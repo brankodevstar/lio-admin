@@ -24,7 +24,6 @@ import DialogTitle from "@mui/material/DialogTitle";
 
 import PageTitle from "../../components/PageTitle";
 import ImageUploader from "../../components/ImageUploader/ImageUploader";
-import { TYPE_NAME } from "../../constant";
 import Action from "../../action";
 
 import useStyles from "./styles";
@@ -33,7 +32,7 @@ const tableHeaders = [
     "No",
     "Thumbnail",
     "Name",
-    "Category",
+    "Phone Number",
     "DiscountText",
     "Rating",
     "LocationName",
@@ -46,7 +45,7 @@ const tableHeaders = [
 const initialBenefit = {
     imgUrl: "",
     name: "",
-    type: 1,
+    phoneNumber: "",
     discountText: "",
     rating: 0,
     locationName: "",
@@ -63,7 +62,7 @@ const initErrors = {
         error: false,
         helperText: "This field is required.",
     },
-    type: {
+    phoneNumber: {
         error: false,
         helperText: "This field is required.",
     },
@@ -115,10 +114,10 @@ export default function BenefitPage() {
                 },
             };
         }
-        if (!benefitData.type) {
+        if (!benefitData.phoneNumber) {
             errorObj = {
                 ...errorObj,
-                type: {
+                phoneNumber: {
                     ...errorObj.type,
                     error: true,
                 },
@@ -184,6 +183,7 @@ export default function BenefitPage() {
     const updateBenefit = (benefit) => {
         setBenefitData(benefit);
         setOpen(true);
+        setErrors(initErrors);
     };
 
     const deleteBenefit = async (benefit) => {
@@ -281,7 +281,7 @@ export default function BenefitPage() {
                                             {benefit.name}
                                         </TableCell>
                                         <TableCell align="center">
-                                            {TYPE_NAME[benefit.type]}
+                                            {benefit.phoneNumber}
                                         </TableCell>
                                         <TableCell align="center">
                                             {benefit.discountText}
@@ -359,25 +359,25 @@ export default function BenefitPage() {
                         }
                         onBlur={handleValid}
                     />
-                    <FormControl fullWidth style={{ marginTop: 10 }}>
-                        <InputLabel id="type-select-label">Type</InputLabel>
-                        <Select
-                            labelId="type-select-label"
-                            value={benefitData.type}
-                            label="Type"
-                            name="type"
-                            onChange={handleChange}
-                            required
-                            error={errors.type.error}
-                            onBlur={handleValid}
-                        >
-                            {TYPE_NAME.map((item, index) => (
-                                <MenuItem key={index} value={index}>
-                                    {item}
-                                </MenuItem>
-                            ))}
-                        </Select>
-                    </FormControl>
+                    <TextField
+                        margin="dense"
+                        id="phoneNumber"
+                        name="phoneNumber"
+                        label="Phone Number"
+                        type="text"
+                        fullWidth
+                        variant="standard"
+                        value={benefitData.phoneNumber}
+                        onChange={handleChange}
+                        required
+                        error={errors.phoneNumber.error}
+                        helperText={
+                            errors.phoneNumber.error
+                                ? errors.phoneNumber.helperText
+                                : ""
+                        }
+                        onBlur={handleValid}
+                    />
                     <TextField
                         margin="dense"
                         id="discountText"

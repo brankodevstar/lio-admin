@@ -180,6 +180,7 @@ export default function EventsPage() {
     const updateEvent = (event) => {
         setEventData(event);
         setOpen(true);
+        setErrors(initErrors);
     };
 
     const deleteEvent = async (event) => {

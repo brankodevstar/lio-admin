@@ -211,6 +211,7 @@ export default function MembsersPage() {
 
     const updateMember = (member) => {
         setUserData(member);
+        setErrors(initErrors);
         setOpen(true);
     };
 

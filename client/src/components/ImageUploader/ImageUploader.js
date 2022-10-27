@@ -1,6 +1,8 @@
 import React, { useState, Fragment } from "react";
 import Button from "@mui/material/Button";
 import { Box, Typography } from "@material-ui/core";
+import CircularProgress from "@mui/material/CircularProgress";
+import LinearProgress from "@mui/material/LinearProgress";
 
 import useStyles from "./styles";
 import Action from "../../action";
@@ -8,11 +10,13 @@ import Action from "../../action";
 function ImageUploader(props) {
     var classes = useStyles();
     const [fileName, setFileName] = useState("");
+    const [uploadStatus, setUploadStatus] = useState(false);
 
     const handleFile = async ({ target }) => {
         const formData = new FormData();
         formData.append("file", target.files[0]);
         setFileName(target.files[0].name);
+        setUploadStatus(true);
         const response = await Action.Upload.upload(formData);
         if (response.data.success) {
             if (props.parentFieldName && props.fieldName) {
@@ -26,6 +30,7 @@ function ImageUploader(props) {
                 props.setPath(response.data.filename);
             }
         }
+        setUploadStatus(false);
     };
 
     return (
@@ -41,6 +46,7 @@ function ImageUploader(props) {
                 <Button variant="contained" component="span">
                     Upload
                 </Button>
+                {uploadStatus && <LinearProgress />}
             </label>
             {props.filePath && !props.fileType ? (
                 <Box variant="outlined">

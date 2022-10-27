@@ -161,6 +161,7 @@ export default function AnnouncementsPage() {
 
     const updateAnnouncement = (announcement) => {
         setAnnouncementData(announcement);
+        setErrors(initErrors);
         setOpen(true);
     };
 

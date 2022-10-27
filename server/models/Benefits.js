@@ -11,8 +11,8 @@ const benefitSchema = new Schema({
         type: String,
         required: true,
     },
-    type: {
-        type: Number,
+    phoneNumber: {
+        type: String,
         required: true,
     },
     discountText: {

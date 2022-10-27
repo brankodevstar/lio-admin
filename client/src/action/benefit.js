@@ -11,7 +11,6 @@ const create = async (param) => {
 };
 
 const update = async (id, param) => {
-    console.log("id, param", id, param);
     const response = await LIOAPIServer.put("benefits/" + id, param);
     return response;
 };

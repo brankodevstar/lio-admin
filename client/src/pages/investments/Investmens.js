@@ -247,6 +247,8 @@ export default function InvestmentsPage() {
     const updateInvestment = (item) => {
         setInvestmentData(item);
         setDialogIndex(1);
+        setErrors(initErrors);
+        setPhotoRequired(false);
     };
 
     const deleteInvestment = async (item) => {
@@ -548,9 +550,6 @@ export default function InvestmentsPage() {
                             onChange={handleChange}
                             required
                             error={errors.type.error}
-                            helperText={
-                                errors.type.error ? errors.type.helperText : ""
-                            }
                             onBlur={handleValid}
                         >
                             {TYPE_NAME.map((item, index) => (

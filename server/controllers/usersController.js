@@ -2,11 +2,24 @@ const User = require("../models/Users");
 
 module.exports = {
     findAll: function (req, res) {
-        User.find(req.query)
-            .then((users) => {
-                res.json(users);
+        if (req.query.username) {
+            User.find({
+                $or: [
+                    { firstName: { $regex: req.query.username } },
+                    { lastName: { $regex: req.query.username } },
+                ],
             })
-            .catch((err) => res.status(422).json(err));
+                .then((users) => {
+                    res.json(users);
+                })
+                .catch((err) => res.status(422).json(err));
+        } else {
+            User.find(req.query)
+                .then((users) => {
+                    res.json(users);
+                })
+                .catch((err) => res.status(422).json(err));
+        }
     },
     findById: function (req, res) {
         User.findById(req.params.id)

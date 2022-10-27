@@ -22,7 +22,6 @@ module.exports = {
             .catch((err) => res.status(422).json(err));
     },
     remove: function (req, res) {
-        console.log('req', req.params.id)
         Gallery.findById({ _id: req.params.id })
             .then((gallery) => gallery.remove())
             .then((allGallerys) => res.json(allGallerys))
