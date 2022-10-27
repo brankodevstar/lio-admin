@@ -33,7 +33,6 @@ const tableHeaders = [
     "Type",
     "Photo",
     "Title",
-    "Category",
     "Description",
     "Funded",
     "Investors",
@@ -44,7 +43,6 @@ const tableHeaders = [
 ];
 
 const initInvestment = {
-    type: 1,
     imageUrl: "",
     title: "",
     categoryName: "",
@@ -71,10 +69,6 @@ const initInvestment = {
 };
 
 const initErrors = {
-    type: {
-        error: false,
-        helperText: "This field is required.",
-    },
     title: {
         error: false,
         helperText: "This field is required.",
@@ -131,15 +125,6 @@ export default function InvestmentsPage() {
 
     const validateData = () => {
         let errorObj = errors;
-        if (!investmentData.type) {
-            errorObj = {
-                ...errorObj,
-                type: {
-                    ...errorObj.type,
-                    error: true,
-                },
-            };
-        }
         if (!investmentData.title) {
             errorObj = {
                 ...errorObj,
@@ -540,25 +525,6 @@ export default function InvestmentsPage() {
             <Dialog open={dialogIndex === 1} onClose={handleClose}>
                 <DialogTitle>Investment Main Info</DialogTitle>
                 <DialogContent>
-                    <FormControl fullWidth style={{ marginTop: 10 }}>
-                        <InputLabel id="type-select-label">Type</InputLabel>
-                        <Select
-                            labelId="type-select-label"
-                            value={investmentData.type}
-                            label="Type"
-                            name="type"
-                            onChange={handleChange}
-                            required
-                            error={errors.type.error}
-                            onBlur={handleValid}
-                        >
-                            {TYPE_NAME.map((item, index) => (
-                                <MenuItem key={index} value={index}>
-                                    {item}
-                                </MenuItem>
-                            ))}
-                        </Select>
-                    </FormControl>
                     <Typography>
                         Photo{" "}
                         {photoRequired && (
