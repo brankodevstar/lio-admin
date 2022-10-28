@@ -27,4 +27,15 @@ module.exports = {
             .then((allAnnouncements) => res.json(allAnnouncements))
             .catch((err) => res.status(422).json(err));
     },
+    increaseLike: function (req, res) {
+        Announcement.findById({ _id: req.params.id })
+            .then((announcement) => {
+                announcement.clickCount++;
+                announcement.save();
+            })
+            .then(() => {
+                res.json({ success: true });
+            })
+            .catch((err) => res.status(422).json(err));
+    },
 };

@@ -11,5 +11,6 @@ router
     .get(announcementController.findById)
     .put(announcementController.update)
     .delete(announcementController.remove);
+router.route("/like/:id").put(announcementController.increaseLike);
 
 module.exports = router;

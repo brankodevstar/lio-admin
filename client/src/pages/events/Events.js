@@ -290,14 +290,14 @@ export default function EventsPage() {
                                             {index + 1}
                                         </TableCell>
                                         <TableCell align="center">
-                                            {event.title}
-                                        </TableCell>
-                                        <TableCell align="center">
                                             <img
                                                 alt="img"
                                                 src={`${process.env.REACT_APP_LIO_API_URL}upload/${event.photos[0]}`}
                                                 className={classes.eventImg}
                                             />
+                                        </TableCell>
+                                        <TableCell align="center">
+                                            {event.title}
                                         </TableCell>
                                         <TableCell align="center">
                                             {event.category}

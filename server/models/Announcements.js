@@ -22,6 +22,33 @@ const announcementSchema = new Schema({
         type: String,
         required: true,
     },
+    comments: {
+        type: [
+            {
+                commenterFirstName: {
+                    type: String,
+                    required: true,
+                },
+                commenterLastName: {
+                    type: String,
+                    required: true,
+                },
+                commenterEmailAddress: {
+                    type: String,
+                    required: true,
+                },
+                commenterAvatarUrl: {
+                    type: String,
+                    required: true,
+                },
+                commentDescription: {
+                    type: String,
+                    required: true,
+                },
+            },
+        ],
+        default: [],
+    },
 });
 
 const Announcement = mongoose.model("Announcement", announcementSchema);
