@@ -13,12 +13,13 @@ const upload = async (req, res) => {
         // });
         const result = await uploadFile(req.file);
 
-        // Deleting from local if uploaded in S3 bucket
+        //Deleting from local if uploaded in S3 bucket
         await unlinkFile(req.file.path);
         res.send({
             success: true,
             message: "Successfully Uploaded!",
             filename: req.file.filename,
+            originalname: req.file.originalname,
         });
     } catch (error) {
         return res.send({
