@@ -10,6 +10,9 @@ import {
     Paper,
     Typography,
 } from "@mui/material";
+import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
+import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
+import { DateTimePicker } from "@mui/x-date-pickers/DateTimePicker";
 import { Delete, Update } from "@mui/icons-material";
 import Button from "@mui/material/Button";
 import TextField from "@mui/material/TextField";
@@ -33,6 +36,7 @@ const tableHeaders = [
     "Location",
     "Description",
     "Created Date",
+    "Active Time",
     "Operation",
 ];
 
@@ -43,6 +47,7 @@ const initialEvent = {
     location: "",
     description: "",
     createdDt: "",
+    activeTime: new Date(),
 };
 
 const initErrors = {
@@ -73,6 +78,7 @@ export default function EventsPage() {
     const [open, setOpen] = useState(false);
     const [eventData, setEventData] = useState(initialEvent);
     const [errors, setErrors] = useState(initErrors);
+    const [value, setValue] = useState(new Date());
 
     var classes = useStyles();
 
@@ -151,6 +157,7 @@ export default function EventsPage() {
         if (validateEventData()) {
             let response;
             eventData.createdDt = new Date();
+            console.log("event Data ====> ", eventData);
             if (eventData._id) {
                 response = await Action.Events.update(eventData._id, eventData);
             } else {
@@ -173,6 +180,7 @@ export default function EventsPage() {
     const getEventList = async (params) => {
         const response = await Action.Events.getList({});
         if (response.data) {
+            console.log("event data ===> ", response.data);
             setEventList(response.data);
         }
     };
@@ -314,6 +322,12 @@ export default function EventsPage() {
                                             ).toLocaleString("en-us")}
                                         </TableCell>
                                         <TableCell align="center">
+                                            {event.activeTime &&
+                                                new Date(
+                                                    event.activeTime,
+                                                ).toLocaleString("en-us")}
+                                        </TableCell>
+                                        <TableCell align="center">
                                             <Button
                                                 size="small"
                                                 startIcon={<Update />}
@@ -356,19 +370,6 @@ export default function EventsPage() {
                             errors.title.error ? errors.title.helperText : ""
                         }
                         onBlur={handleValid}
-                    />
-                    <Typography>
-                        Photo{" "}
-                        {errors.photos.error && (
-                            <span className={classes.mandatoryField}>
-                                required
-                            </span>
-                        )}
-                    </Typography>
-                    <MultiImageUploader
-                        addPath={addPath}
-                        deletePath={deletePath}
-                        photos={eventData.photos}
                     />
                     <TextField
                         margin="dense"
@@ -426,6 +427,34 @@ export default function EventsPage() {
                                 : ""
                         }
                         onBlur={handleValid}
+                    />
+                    <LocalizationProvider dateAdapter={AdapterDayjs}>
+                        <DateTimePicker
+                            renderInput={(props) => <TextField {...props} />}
+                            label="Event Active Date and time"
+                            value={eventData.activeTime}
+                            name="activeTime"
+                            onChange={(newValue) => {
+                                setEventData({
+                                    ...eventData,
+                                    activeTime: new Date(newValue),
+                                });
+                            }}
+                            className={classes.dateTimePicker}
+                        />
+                    </LocalizationProvider>
+                    <Typography>
+                        Photo{" "}
+                        {errors.photos.error && (
+                            <span className={classes.mandatoryField}>
+                                required
+                            </span>
+                        )}
+                    </Typography>
+                    <MultiImageUploader
+                        addPath={addPath}
+                        deletePath={deletePath}
+                        photos={eventData.photos}
                     />
                 </DialogContent>
                 <DialogActions>

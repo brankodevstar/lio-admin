@@ -9,4 +9,7 @@ export default makeStyles((theme) => ({
     mandatoryField: {
         color: "red",
     },
+    dateTimePicker: {
+        marginTop: "20px !important",
+    },
 }));

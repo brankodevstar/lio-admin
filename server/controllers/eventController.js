@@ -14,6 +14,7 @@ module.exports = {
             .catch((err) => res.status(422).json(err));
     },
     create: function (req, res) {
+        console.log("event data ======> ", req.body);
         Event.create(req.body)
             .then((newEvent) => res.json(newEvent))
             .catch((err) => res.status(422).json(err));

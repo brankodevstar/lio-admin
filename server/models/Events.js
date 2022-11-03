@@ -18,6 +18,10 @@ const eventSchema = new Schema({
         type: String,
         required: true,
     },
+    activeTime: {
+        type: String,
+        required: true,
+    },
     location: {
         type: String,
         required: true,
