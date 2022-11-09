@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { Grid, Typography } from "@material-ui/core";
+import Switch from '@mui/material/Switch';
 import {
     Table,
     TableBody,
@@ -36,10 +37,12 @@ const tableHeaders = [
     "Round Close",
     "Location",
     "Close Day",
+    "Featured",
     "Operation",
 ];
 
 const initInvestment = {
+    _id: "",
     imageUrl: "",
     title: "",
     categoryName: "",
@@ -49,6 +52,7 @@ const initInvestment = {
     roundClose: "",
     location: "",
     closeDay: "",
+    featured: false,
     overview: {
         shortSummary: "",
         highlights: [],
@@ -119,6 +123,17 @@ export default function InvestmentsPage() {
     const handleClose = () => {
         setDialogIndex(0);
     };
+
+    const updateFeatured = async (item) => {
+        item.featured = item.featured ? false : true;
+        let response = await Action.Investments.update(
+            item._id,
+            item,
+        );
+        if (response.statusText == "OK") {
+            readInvestment();
+        }
+    }
 
     const validateData = () => {
         let errorObj = errors;
@@ -494,8 +509,17 @@ export default function InvestmentsPage() {
                                         <TableCell align="center">
                                             {item.closeDay}
                                         </TableCell>
-
                                         <TableCell align="center">
+                                            <span>{item.featured}</span>
+                                            <Switch
+                                                checked={item.featured}
+                                                onChange={() => {
+                                                    updateFeatured(item)
+                                                }}
+                                                inputProps={{ 'aria-label': 'controlled' }}
+                                            />
+                                        </TableCell>
+                                        <TableCell align="center">                                            
                                             <Button
                                                 size="small"
                                                 startIcon={<Update />}
@@ -683,7 +707,7 @@ export default function InvestmentsPage() {
                         onBlur={handleValid}
                     />
                 </DialogContent>
-                <DialogActions>
+                <DialogActions>                    
                     <Button onClick={handleClose}>Cancel</Button>
                     <Button onClick={handleSave} variant="contained">
                         Next

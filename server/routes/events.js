@@ -3,6 +3,8 @@ const eventConroller = require("../controllers/eventController");
 
 router.route("/").get(eventConroller.findAll).post(eventConroller.create);
 
+router.route("/findFeatured").get(eventConroller.findFeatured);
+
 router
     .route("/:id")
     .get(eventConroller.findById)

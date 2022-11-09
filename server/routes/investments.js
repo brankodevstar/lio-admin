@@ -6,6 +6,8 @@ router
     .get(investmentController.findAll)
     .post(investmentController.create);
 
+router.route("/findFeatured").get(investmentController.findFeatured);
+
 router
     .route("/:id")
     .get(investmentController.findById)

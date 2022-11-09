@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { Grid } from "@material-ui/core";
+import Switch from '@mui/material/Switch';
 import {
     Table,
     TableBody,
@@ -37,10 +38,12 @@ const tableHeaders = [
     "Description",
     "Created Date",
     "Active Time",
+    "Featured",
     "Operation",
 ];
 
 const initialEvent = {
+    _id: "",
     photos: [],
     title: "",
     category: "",
@@ -48,6 +51,7 @@ const initialEvent = {
     description: "",
     createdDt: "",
     activeTime: new Date(),
+    featured: false,
 };
 
 const initErrors = {
@@ -98,6 +102,17 @@ export default function EventsPage() {
         });
         setOpen(false);
     };
+
+    const updateFeatured = async (event) => {
+        event.featured = event.featured ? false : true;
+        let response = await Action.Events.update(
+            event._id,
+            event,
+        );
+        if (response.statusText == "OK") {
+            getEventList();
+        }
+    }
 
     const validateEventData = () => {
         let errorObj = errors;
@@ -324,6 +339,15 @@ export default function EventsPage() {
                                                 new Date(
                                                     event.activeTime,
                                                 ).toLocaleString("en-us")}
+                                        </TableCell>
+                                        <TableCell align="center">
+                                            <Switch
+                                                checked={event.featured}
+                                                onChange={() => {
+                                                    updateFeatured(event)
+                                                }}
+                                                inputProps={{ 'aria-label': 'controlled' }}
+                                            />
                                         </TableCell>
                                         <TableCell align="center">
                                             <Button

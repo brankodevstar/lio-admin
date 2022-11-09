@@ -6,6 +6,11 @@ module.exports = {
             .then((events) => res.json(events))
             .catch((err) => res.status(422).json(err));
     },
+    findFeatured: function (req, res) {
+        Event.find({ featured: true })
+            .then((events) => res.json(events))
+            .catch((err) => res.status(422).json(err));
+    },
     findById: function (req, res) {
         Event.findById(req.params.id)
             .then((event) => {

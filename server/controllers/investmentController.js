@@ -6,6 +6,11 @@ module.exports = {
             .then((investments) => res.json(investments))
             .catch((err) => res.status(422).json(err));
     },
+    findFeatured: function (req, res) {
+        Investment.find({ featured: true })
+            .then((investments) => res.json(investments))
+            .catch((err) => res.status(422).json(err));
+    },
     findById: function (req, res) {
         Investment.findById(req.params.id)
             .then((investment) => res.json(investment))
