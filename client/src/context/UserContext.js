@@ -1,4 +1,5 @@
 import React from "react";
+import Action from "../action";
 
 var UserStateContext = React.createContext();
 var UserDispatchContext = React.createContext();
@@ -45,7 +46,7 @@ function useUserDispatch() {
     return context;
 }
 
-export { UserProvider, useUserState, useUserDispatch, loginUser, signOut };
+export { UserProvider, useUserState, useUserDispatch, loginUser, changePassword, signOut };
 
 // ###########################################################
 
@@ -54,18 +55,52 @@ function loginUser(dispatch, login, password, history, setIsLoading, setError) {
     setIsLoading(true);
 
     if (!!login && !!password) {
-        setTimeout(() => {
-            localStorage.setItem("id_token", 1);
-            setError(null);
-            setIsLoading(false);
-            dispatch({ type: "LOGIN_SUCCESS" });
+        Action.Admin.login({
+            email: login,
+            password: password
+        }).then((res) => {
+            if (res.data.length > 0) {
+                localStorage.setItem("id_token", 1);
+                setError(null);
+                setIsLoading(false);
+                dispatch({ type: "LOGIN_SUCCESS" });
 
-            history.push("/app/members");
-        }, 2000);
+                history.push("/app/members");
+            } else {
+                window.alert("Email or password is incorrect, Please try again")
+                setIsLoading(false)
+            }
+        })
     } else {
         dispatch({ type: "LOGIN_FAILURE" });
         setError(true);
         setIsLoading(false);
+    }
+}
+
+function changePassword(email, currentPassword, newPassword, confirmPassword, history, setIsLoading, setError, setActiveTabId) {
+    setError(false);
+    setIsLoading(true);
+
+    if (!!email && !!currentPassword && !!newPassword && !!confirmPassword) {
+        if (newPassword === confirmPassword) {
+            Action.Admin.changePassword({
+                email: email,
+                currentPassword: currentPassword,
+                newPassword: newPassword
+            }).then((res) => {
+                if (res.data.success) {
+                    setError(null);
+                    setIsLoading(false);
+                    setActiveTabId(0);
+                } else {
+                    window.alert("Email or password is incorrect, Please try again")
+                    setIsLoading(false)
+                }
+            })
+        } else {
+            window.alert("Please confirm your new password correctly")
+        }
     }
 }
 

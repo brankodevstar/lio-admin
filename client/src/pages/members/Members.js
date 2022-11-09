@@ -29,6 +29,7 @@ import useStyles from "./styles";
 
 const tableHeaders = [
     "No",
+    "ID",
     "First Name",
     "Last Name",
     "Email Addr",
@@ -37,8 +38,8 @@ const tableHeaders = [
     "City Name",
     "Gender",
     "Birth Date",
-    "Caption",
-    "Avatar Url",
+    "Industry",
+    "Avatar",
     "Operation",
 ];
 
@@ -326,9 +327,18 @@ export default function MembsersPage() {
             <PageTitle title="Members" />
             <Grid container spacing={4}>
                 <Grid item xs={12} align="right">
-                    <Button variant="contained" onClick={handleClickOpen}>
-                        Add
-                    </Button>
+                    <label htmlFor="upload-excel">
+                        <input
+                            style={{ display: 'none' }}
+                            id="upload-excel"
+                            name="upload-excel"
+                            accept="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/vnd.ms-excel"
+                            type="file"
+                        />
+                        <Button color="primary" variant="contained" component="span">
+                            Import Excel File
+                        </Button>
+                    </label>
                 </Grid>
                 <Grid item xs={12}>
                     <TableContainer component={Paper}>
@@ -354,6 +364,9 @@ export default function MembsersPage() {
                                     >
                                         <TableCell align="center">
                                             {index + 1}
+                                        </TableCell>
+                                        <TableCell align="center">
+                                            {member._id}
                                         </TableCell>
                                         <TableCell align="center">
                                             {member.firstName}

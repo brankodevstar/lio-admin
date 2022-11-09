@@ -29,8 +29,6 @@ const tableHeaders = [
     "No",
     "Description",
     "Image",
-    "Click Count",
-    "Comment Count",
     "Created Time",
     "Operation",
 ];
@@ -260,13 +258,7 @@ export default function AnnouncementsPage() {
                                                     classes.announcementImg
                                                 }
                                             />
-                                        </TableCell>
-                                        <TableCell align="center">
-                                            {announcement.clickCount}
-                                        </TableCell>
-                                        <TableCell align="center">
-                                            {announcement.commentCount}
-                                        </TableCell>
+                                        </TableCell>                                        
                                         <TableCell align="center">
                                             {new Date(
                                                 announcement.createdDt,
@@ -333,44 +325,6 @@ export default function AnnouncementsPage() {
                     <ImageUploader
                         setPath={setUploadedImgUrl}
                         filePath={announcementData.imgUrl}
-                    />
-                    <TextField
-                        margin="dense"
-                        id="clickCount"
-                        name="clickCount"
-                        label="Click Count"
-                        type="number"
-                        fullWidth
-                        variant="standard"
-                        value={announcementData.clickCount}
-                        onChange={handleChange}
-                        required
-                        error={errors.clickCount.error}
-                        helperText={
-                            errors.clickCount.error
-                                ? errors.clickCount.helperText
-                                : ""
-                        }
-                        onBlur={handleValid}
-                    />
-                    <TextField
-                        margin="dense"
-                        id="commentCount"
-                        name="commentCount"
-                        label="Comment Count"
-                        type="number"
-                        fullWidth
-                        variant="standard"
-                        value={announcementData.commentCount}
-                        onChange={handleChange}
-                        required
-                        error={errors.commentCount.error}
-                        helperText={
-                            errors.commentCount.error
-                                ? errors.commentCount.helperText
-                                : ""
-                        }
-                        onBlur={handleValid}
                     />
                 </DialogContent>
                 <DialogActions>

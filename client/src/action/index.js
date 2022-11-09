@@ -5,6 +5,7 @@ import Investments from "./investments";
 import Events from "./events";
 import Benefits from "./benefit";
 import Gallerys from "./gallerys";
+import Admin from "./admin";
 
 const allAction = {
     Member,
@@ -14,6 +15,7 @@ const allAction = {
     Events,
     Benefits,
     Gallerys,
+    Admin
 };
 
 export default allAction;

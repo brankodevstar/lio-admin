@@ -8,6 +8,7 @@ const eventRoutes = require("./events");
 const investmentRoutes = require("./investments");
 const benefitRoutes = require("./benefits");
 const galleryRoutes = require("./gallerys");
+const adminRoutes = require("./admin");
 
 router.use("/api/books", bookRoutes);
 router.use("/api/users", userRoutes);
@@ -18,5 +19,6 @@ router.use("/api/events", eventRoutes);
 router.use("/api/investments", investmentRoutes);
 router.use("/api/benefits", benefitRoutes);
 router.use("/api/gallerys", galleryRoutes);
+router.use("/api/admin", adminRoutes);
 
 module.exports = router;

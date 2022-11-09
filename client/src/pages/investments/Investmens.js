@@ -15,10 +15,6 @@ import {
     DialogContent,
     DialogTitle,
     Box,
-    FormControl,
-    InputLabel,
-    Select,
-    MenuItem,
 } from "@mui/material";
 import { Delete, Update } from "@mui/icons-material";
 
@@ -33,6 +29,7 @@ const tableHeaders = [
     "Type",
     "Photo",
     "Title",
+    "Category",
     "Description",
     "Funded",
     "Investors",

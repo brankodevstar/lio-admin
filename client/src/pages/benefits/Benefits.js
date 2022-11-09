@@ -9,10 +9,6 @@ import {
     TableRow,
     Paper,
     Typography,
-    FormControl,
-    InputLabel,
-    Select,
-    MenuItem,
 } from "@mui/material";
 import { Delete, Update } from "@mui/icons-material";
 import Button from "@mui/material/Button";
@@ -35,7 +31,7 @@ const tableHeaders = [
     "Phone Number",
     "DiscountText",
     "Rating",
-    "LocationName",
+    "Area",
     "Location",
     "Distance",
     "Created",

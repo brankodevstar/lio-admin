@@ -157,7 +157,6 @@ export default function EventsPage() {
         if (validateEventData()) {
             let response;
             eventData.createdDt = new Date();
-            console.log("event Data ====> ", eventData);
             if (eventData._id) {
                 response = await Action.Events.update(eventData._id, eventData);
             } else {
@@ -180,7 +179,6 @@ export default function EventsPage() {
     const getEventList = async (params) => {
         const response = await Action.Events.getList({});
         if (response.data) {
-            console.log("event data ===> ", response.data);
             setEventList(response.data);
         }
     };
