@@ -322,6 +322,36 @@ export default function MembsersPage() {
         });
     };
 
+    // const handleFile = async ({ target }) => {
+    //     const formData = new FormData();
+    //     formData.append("file", target.files[0]);
+    //     setFileName(target.files[0].name);
+    //     setUploadStatus(true);
+    //     const response = await Action.Upload.upload(formData);
+    //     if (response.data.success) {
+    //         if (props.parentFieldName && props.fieldName) {
+    //             props.setPath(
+    //                 response.data.filename,
+    //                 props.parentFieldName,
+    //                 props.index,
+    //                 props.fieldName,
+    //             );
+    //         } else {
+    //             props.setPath(response.data.filename);
+    //         }
+    //     }
+    //     setUploadStatus(false);
+    // };
+
+    const importExcel = async ({target}) => {
+        console.log('importExcel', target);
+        const formData = new FormData();
+        formData.append("file", target.files[0]);
+        console.log('formData', formData);
+        const response = await Action.Excel.upload(formData);
+        console.log('response = ', response);
+    }
+
     return (
         <>
             <PageTitle title="Members" />
@@ -334,6 +364,7 @@ export default function MembsersPage() {
                             name="upload-excel"
                             accept="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/vnd.ms-excel"
                             type="file"
+                            onChange={importExcel}
                         />
                         <Button color="primary" variant="contained" component="span">
                             Import Excel File

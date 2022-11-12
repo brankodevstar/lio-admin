@@ -35,6 +35,7 @@ const tableHeaders = [
     "Title",
     "Category",
     "Location",
+    "Location Name",
     "Description",
     "Created Date",
     "Active Time",
@@ -43,11 +44,11 @@ const tableHeaders = [
 ];
 
 const initialEvent = {
-    _id: "",
     photos: [],
     title: "",
     category: "",
     location: "",
+    locationName: "",
     description: "",
     createdDt: "",
     activeTime: new Date(),
@@ -68,6 +69,10 @@ const initErrors = {
         helperText: "This field is required.",
     },
     location: {
+        error: false,
+        helperText: "This field is required.",
+    },
+    locationName: {
         error: false,
         helperText: "This field is required.",
     },
@@ -152,7 +157,15 @@ export default function EventsPage() {
                 },
             };
         }
-
+        if (!eventData.locationName) {
+            errorObj = {
+                ...errorObj,
+                locationName: {
+                    ...errorObj.locationName,
+                    error: true,
+                },
+            };
+        }
         if (eventData.photos.length === 0) {
             errorObj = {
                 ...errorObj,
@@ -327,6 +340,9 @@ export default function EventsPage() {
                                             {event.location}
                                         </TableCell>
                                         <TableCell align="center">
+                                            {event.locationName}
+                                        </TableCell>
+                                        <TableCell align="center">
                                             {event.description}
                                         </TableCell>
                                         <TableCell align="center">
@@ -408,6 +424,25 @@ export default function EventsPage() {
                         helperText={
                             errors.category.error
                                 ? errors.category.helperText
+                                : ""
+                        }
+                        onBlur={handleValid}
+                    />
+                    <TextField
+                        margin="dense"
+                        id="locationName"
+                        name="locationName"
+                        label="LocationName"
+                        type="text"
+                        fullWidth
+                        variant="standard"
+                        value={eventData.locationName}
+                        onChange={handleChange}
+                        required
+                        error={errors.locationName.error}
+                        helperText={
+                            errors.locationName.error
+                                ? errors.locationName.helperText
                                 : ""
                         }
                         onBlur={handleValid}

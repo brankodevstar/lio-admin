@@ -9,6 +9,7 @@ const investmentRoutes = require("./investments");
 const benefitRoutes = require("./benefits");
 const galleryRoutes = require("./gallerys");
 const adminRoutes = require("./admin");
+const excelRoutes = require("./excel");
 
 router.use("/api/books", bookRoutes);
 router.use("/api/users", userRoutes);
@@ -20,5 +21,6 @@ router.use("/api/investments", investmentRoutes);
 router.use("/api/benefits", benefitRoutes);
 router.use("/api/gallerys", galleryRoutes);
 router.use("/api/admin", adminRoutes);
+router.use("/api/excel", excelRoutes);
 
 module.exports = router;

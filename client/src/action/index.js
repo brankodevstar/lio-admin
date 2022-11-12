@@ -6,6 +6,7 @@ import Events from "./events";
 import Benefits from "./benefit";
 import Gallerys from "./gallerys";
 import Admin from "./admin";
+import Excel from "./excel";
 
 const allAction = {
     Member,
@@ -15,7 +16,8 @@ const allAction = {
     Events,
     Benefits,
     Gallerys,
-    Admin
+    Admin,
+    Excel,
 };
 
 export default allAction;

@@ -1,4 +1,3 @@
-const uploadPath = process.env.UPLOAD_PATH;
 const { uploadFile, getFileStream } = require("./s3");
 const fs = require("fs");
 const util = require("util");

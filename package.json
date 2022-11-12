@@ -13,9 +13,11 @@
   "dependencies": {
     "aws-sdk": "^2.1241.0",
     "classnames": "^2.3.2",
+    "convert-excel-to-json": "^1.7.0",
     "cors": "^2.8.5",
     "crypto-random-string": "^5.0.0",
     "cryptr": "^6.0.3",
+    "csvtojson": "^2.0.10",
     "dotenv": "^16.0.3",
     "express": "^4.18.1",
     "express-fileupload": "^1.4.0",
