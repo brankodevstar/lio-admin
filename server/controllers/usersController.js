@@ -33,7 +33,14 @@ module.exports = {
     },
     update: function (req, res) {
         User.findOneAndUpdate({ _id: req.params.id }, req.body)
-            .then((user) => res.json(user))
+            .then((user) => {
+                User.findById(req.params.id)
+                    .then((newUser) => {
+                        console.log("new user ===> ", newUser);
+                        res.json(newUser);
+                    })
+                    .catch((err) => res.status(422).json(err));
+            })
             .catch((err) => res.status(422).json(err));
     },
     remove: function (req, res) {
