@@ -322,30 +322,41 @@ export default function MembsersPage() {
         });
     };
 
-    const importExcel = async ({target}) => {
+    const importExcel = async ({ target }) => {
         const formData = new FormData();
         formData.append("file", target.files[0]);
         const response = await Action.Excel.upload(formData);
         if (response.data.success) {
             readMember();
         }
-    }
+    };
 
     return (
         <>
             <PageTitle title="Members" />
             <Grid container spacing={4}>
                 <Grid item xs={12} align="right">
+                    <Button
+                        variant="contained"
+                        onClick={handleClickOpen}
+                        style={{ marginRight: 20 }}
+                    >
+                        Add
+                    </Button>
                     <label htmlFor="upload-excel">
                         <input
-                            style={{ display: 'none' }}
+                            style={{ display: "none" }}
                             id="upload-excel"
                             name="upload-excel"
                             accept="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/vnd.ms-excel"
                             type="file"
                             onChange={importExcel}
                         />
-                        <Button color="primary" variant="contained" component="span">
+                        <Button
+                            color="primary"
+                            variant="contained"
+                            component="span"
+                        >
                             Import Excel File
                         </Button>
                     </label>
